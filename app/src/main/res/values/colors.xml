@@ -8,10 +8,13 @@
     <color name="blue">#455FED</color>
     <color name="purple">#6F36D6</color>
     <color name="red">#F61E1E</color>
+    <color name="primary_background">#FFF8F2</color>
     <color name="primary_color">#B14B00</color>
     <color name="secondary_color">#781E02</color>
-    <color name="text_white_color">#781E02</color>
-    <color name="text_black_color">#781E02</color>
+    <color name="text_white_color">#FFFFFFFF</color>
+    <color name="text__primary_black_color">#454545</color>
+    <color name="text__secondary_black_color">#454545</color>
+
     <color name="text_link_color">#781E02</color>
 <!--    <color name="transparent">#990000</color>-->
 </resources>

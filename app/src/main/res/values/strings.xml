@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Pennymead</string>
     <string name="top_app_bar_name">PENNYMEAD.COM</string>
+    <string name="follow_us_on">Follow us on</string>
 </resources>

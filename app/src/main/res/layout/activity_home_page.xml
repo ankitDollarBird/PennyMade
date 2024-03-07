@@ -15,25 +15,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollView"
+        android:id="@+id/collectables_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginLeft="16dp"
-
         android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_page_header">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tv_collectables"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Collectables"
-                android:textColor="@color/black"
+                android:textColor="@color/text__primary_black_color"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,44 +45,61 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_collectables"
-                tools:ignore="MissingConstraints"
-                tools:listitem="@layout/list_categories_items" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_collectables" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tv_collectable_items"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:nestedScrollingEnabled="false"
+                android:textStyle="bold"
+                android:textColor="@color/text__primary_black_color"
                 android:text="Collectable items"
                 android:textSize="24sp"
                 android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/textView2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_list_categories" />
 
-            <ImageView
-                android:id="@+id/icon_filter"
-                android:layout_width="wrap_content"
+            <include
+                android:id="@+id/collectable_items_filters"
+                layout="@layout/filters"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_filter"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_collectable_items" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_collectable_items"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Filtersffffffffffffffffffffffff"
+                android:overScrollMode="never"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/collectable_items_filters">
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bottom_app_bar"
+                layout="@layout/bottom_app_bar"
+                android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/icon_filter" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_collectable_items" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,4 +1,4 @@
-package com.example.pennymead.page.home;
+package com.example.pennymead.page.home.adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.pennymead.R;
 import com.example.pennymead.model.home.CategoriesData;
+import com.google.android.material.textview.MaterialTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -55,8 +56,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Li
     public class ListCategoryViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivItems;
-        TextView tvTitle;
-        TextView tvName;
+      MaterialTextView tvTitle;
+        MaterialTextView tvName;
         public ListCategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             ivItems = itemView.findViewById(R.id.img_list_categories);
