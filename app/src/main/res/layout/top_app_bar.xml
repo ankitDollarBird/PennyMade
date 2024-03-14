@@ -13,7 +13,7 @@
         android:layout_margin="16dp"
         android:textSize="20sp"
         android:text="@string/top_app_bar_name"
-        android:textColor="@color/text__primary_black_color"
+        android:textColor="@color/text_primary_black_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

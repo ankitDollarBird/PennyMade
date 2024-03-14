@@ -4,13 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginRight="16dp"
+    android:background="@color/primary_background"
+android:layout_marginRight="32dp"
+    android:layout_marginLeft="32dp"
+    android:elevation="18dp"
+    android:layout_marginBottom="20dp"
+    android:layout_marginTop="20dp"
     android:padding="16dp">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/iv_collectable_items"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/img_items"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,52 +28,55 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="support test1"
-        android:textColor="@color/text__primary_black_color"
-
+        android:textColor="@color/text_primary_black_color"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_collectable_items" />
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_collectables_items_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="$12"
-        android:textColor="@color/text__primary_black_color"
+        android:textColor="@color/text_primary_black_color"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_collectable_items" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_collectables_items_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="support test1 title"
-        android:textColor="@color/text__primary_black_color"
+        android:textColor="@color/text_primary_black_color"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_collectables_items_author" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_collectables_items_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="description"
-        android:textColor="@color/text__primary_black_color"
+        android:textColor="@color/text_primary_black_color"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_collectables_items_title" />
 
-    <com.example.pennymead.reuseables.AddToCartButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add To Cart"
+        android:background="@color/primary_color"
+        android:textColor="@color/text_white_color"
+        app:backgroundTint="@null"
+       android:padding="6dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_collectables_items_description" />
 
 
 

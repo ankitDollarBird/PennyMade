@@ -7,6 +7,8 @@
     android:background="@drawable/background"
     tools:context=".page.home.HomePageActivity">
 
+
+
     <include
         android:id="@+id/home_page_header"
         layout="@layout/top_app_bar"
@@ -18,7 +20,6 @@
         android:id="@+id/collectables_scrollview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="16dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +34,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Collectables"
-                android:textColor="@color/text__primary_black_color"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/text_primary_black_color"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +46,10 @@
                 android:id="@+id/rv_list_categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +64,7 @@
                 android:layout_marginTop="16dp"
                 android:nestedScrollingEnabled="false"
                 android:textStyle="bold"
-                android:textColor="@color/text__primary_black_color"
+                android:textColor="@color/text_primary_black_color"
                 android:text="Collectable items"
                 android:textSize="24sp"
                 android:visibility="visible"
@@ -72,6 +77,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_collectable_items" />
@@ -81,13 +88,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never"
-                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/collectable_items_filters">
             </androidx.recyclerview.widget.RecyclerView>
 
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/include_pagination"
+                layout="@layout/pagination"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
 
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_collectable_items"
+
+                />
 
             <include
                 android:layout_width="match_parent"
@@ -98,7 +116,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_collectable_items" />
+                app:layout_constraintTop_toBottomOf="@+id/include_pagination" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

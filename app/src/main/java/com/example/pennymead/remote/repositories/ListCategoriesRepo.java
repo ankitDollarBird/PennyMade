@@ -4,6 +4,9 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+
+import com.example.pennymead.model.home.CollectablesItems;
+import com.example.pennymead.model.home.CollectablesItemsData;
 import com.example.pennymead.model.home.ListCategories;
 import com.example.pennymead.model.home.CategoriesData;
 import com.example.pennymead.remote.ApiModel.ApiClient;
@@ -16,42 +19,65 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListCategoriesRepo {
-    MutableLiveData<List<CategoriesData>> liveData;
+    MutableLiveData<List<CategoriesData>> liveDataCollectables;
+    MutableLiveData<CollectablesItemsData> liveDataCollectableItems;
     ApiInterface apiInterface;
     ListCategories listCategories;
     List<CategoriesData> listCategoriesDataList;
 
-    public MutableLiveData<List<CategoriesData>> getLiveData() {
-        liveData = new MutableLiveData<>();
+    //Collectables
+    public MutableLiveData<List<CategoriesData>> getCollectablesLiveData() {
 
-        Log.d("My Compiler and interpreter","is repositories");
+        liveDataCollectables = new MutableLiveData<>();
 
-        apiInterface = ApiClient.getRetrofit().create(ApiInterface.class);
+        apiInterface = ApiClient.getCollectables().create(ApiInterface.class);
 
         apiInterface.getListCategories().enqueue(new Callback<ListCategories>() {
             @Override
             public void onResponse(Call<ListCategories> call, Response<ListCategories> response) {
-                Log.d("My Compiler and interpreter","is repositories in onResponse");
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
 
                     listCategories = response.body();
-                    if(listCategories!=null) {
-                        Log.d("My Compiler and interpreter","is repositories it is not null");
-                    }
-                    else{
-                        Log.d("My Compiler and interpreter","is repositories it is null");
-                    }
                     listCategoriesDataList = listCategories.getDataList();
-                    liveData.postValue(listCategoriesDataList);
+                    liveDataCollectables.postValue(listCategoriesDataList);
                 }
             }
 
             @Override
             public void onFailure(Call<ListCategories> call, Throwable t) {
-                Log.d("Unable to fetch the data","in repositories");
+
+            }
+        });
+        return liveDataCollectables;
+    }
+
+    public MutableLiveData<CollectablesItemsData> getCollectablesItemsLiveData(String filters,int pageNumber) {
+
+        liveDataCollectableItems = new MutableLiveData<>();
+
+        apiInterface = ApiClient.getCollectableItems(filters).create(ApiInterface.class);
+
+        apiInterface.getCollectableItems(pageNumber).enqueue(new Callback<CollectablesItems>() {
+            @Override
+            public void onResponse(Call<CollectablesItems> call, Response<CollectablesItems> response) {
+
+                if (response.isSuccessful()) {
+                    CollectablesItems collectablesItems = response.body();
+                    if (collectablesItems != null) {
+                        CollectablesItemsData collectablesItemsData = collectablesItems.getCollectablesItemsData();
+                        if (collectablesItemsData != null) {
+                            liveDataCollectableItems.postValue(collectablesItemsData);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CollectablesItems> call, Throwable t) {
+                Log.d("Unable to fetch the data", "in collectables items repositories");
             }
         });
 
-        return liveData;
+        return liveDataCollectableItems;
     }
 }

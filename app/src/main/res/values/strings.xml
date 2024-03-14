@@ -1,5 +1,28 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+
     <string name="app_name">Pennymead</string>
     <string name="top_app_bar_name">PENNYMEAD.COM</string>
     <string name="follow_us_on">Follow us on</string>
+
+    <string-array name="collectables_items">
+        <item>Newest Items </item>
+        <item>Author </item>
+        <item>Title </item>
+        <item>Price-High </item>
+        <item>Price-Low </item>
+    </string-array>
+
+    <string name="address">
+        Pennymead Auctions and Books.  Proprietor David Druett. VAT Reg. No. 355701208 \n \n
+
+1 Brewerton Street \n
+Knaresborough \n
+North Yorkshire \n
+HG5 8AZ  \n\n
+
+Telephone: 01423 865962  E-mail: pennymead@aol.com or pennymeadbooks at hotmail.co.uk \n\n
+
+Pennymead Auctions/Books is a one man business which I started in 1982.  I trade from my home in Knaresborough and welcome customers by appointment.
+    </string>
+
 </resources>
