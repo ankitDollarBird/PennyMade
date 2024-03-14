@@ -1,11 +1,10 @@
-package com.example.pennymead.page.home.adapter;
+package com.example.pennymead.page.home.viewmodel;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,11 +32,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Li
             holder.tvTitle.setText(listCategoriesDataList.get(position).getTitle());
             if(listCategoriesDataList.get(position).getImage()!=null) {
                 Picasso.get().load(listCategoriesDataList.get(position).getImage().get(0)).resize(100, 120).into(holder.ivItems);
-                Log.d("Displaying", "Image from picasso");
             }
             else{
-                holder.ivItems.setImageResource(R.drawable.img_items);
-                Log.d("Displaying", "Image from drawable");
+                holder.ivItems.setImageResource(R.drawable.not_found_img);
             }
     }
 

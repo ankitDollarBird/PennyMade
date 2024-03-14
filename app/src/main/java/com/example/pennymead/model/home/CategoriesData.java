@@ -28,31 +28,4 @@ public class CategoriesData {
         return image;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setImage(List<String> image) {
-        this.image = image;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 }
