@@ -43,7 +43,7 @@ public class CollectableItemsAdapter extends RecyclerView.Adapter<CollectableIte
             Picasso.get().load(collectableItemsList.get(position).getImage().get(0)).resize(320, 320).into(holder.ivItems);
         }
         else{
-            holder.ivItems.setImageResource(R.drawable.img_items);
+            holder.ivItems.setImageResource(R.drawable.not_found_img);
         }
 
 
