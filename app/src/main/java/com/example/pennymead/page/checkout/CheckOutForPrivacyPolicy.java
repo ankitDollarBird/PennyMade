@@ -1,17 +1,21 @@
 package com.example.pennymead.page.checkout;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.pennymead.R;
+import com.example.pennymead.databinding.ActivityCheckOutForPrivacyPolicyBinding;
 import com.example.pennymead.page.BaseActivity;
 
 public class CheckOutForPrivacyPolicy extends BaseActivity {
 
+    ActivityCheckOutForPrivacyPolicyBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_out_for_privacy_policy);
+
+        binding = ActivityCheckOutForPrivacyPolicyBinding.inflate(getLayoutInflater());
+        View v = binding.getRoot();
+        setContentView(v);
     }
 }
