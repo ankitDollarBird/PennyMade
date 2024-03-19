@@ -1,6 +1,6 @@
 package com.example.pennymead.page.home.viewmodel;
 
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +9,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.pennymead.R;
-import com.example.pennymead.model.home.CategoriesData;
+import com.example.pennymead.model.CategoriesData;
+import com.example.pennymead.page.catalogue.CatalogueListActivity;
 import com.google.android.material.textview.MaterialTextView;
 import com.squareup.picasso.Picasso;
 
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ListCategoryViewHolder> {
 
     ArrayList<CategoriesData> listCategoriesDataList;
+    Intent intent;
+
     @NonNull
     @Override
     public CategoriesAdapter.ListCategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,6 +39,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Li
             else{
                 holder.ivItems.setImageResource(R.drawable.not_found_img);
             }
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intent = new Intent(v.getContext(), CatalogueListActivity.class);
+                    intent.putExtra("collectables",listCategoriesDataList.get(position).getName());
+                    v.getContext().startActivity(intent);
+                }
+            });
     }
 
     @Override
