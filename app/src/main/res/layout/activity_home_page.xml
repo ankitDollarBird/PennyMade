@@ -3,27 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:layout_height="wrap_content"
+    android:background="@null"
     tools:context=".page.home.HomePageActivity">
-
-
-
-    <include
-        android:id="@+id/home_page_header"
-        layout="@layout/top_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/collectables_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_page_header">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,8 +24,9 @@
                 android:id="@+id/tv_collectables"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Collectables"
                 android:layout_marginLeft="16dp"
+                android:paddingTop="16dp"
+                android:text="Collectables"
                 android:textColor="@color/text_primary_black_color"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -46,10 +38,10 @@
                 android:id="@+id/rv_list_categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="8dp"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -61,12 +53,13 @@
                 android:id="@+id/tv_collectable_items"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:nestedScrollingEnabled="false"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary_black_color"
                 android:text="Collectable items"
+                android:textColor="@color/text_primary_black_color"
                 android:textSize="24sp"
+                android:textStyle="bold"
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_list_categories" />
@@ -76,9 +69,9 @@
                 layout="@layout/filters"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="24dp"
-                android:layout_marginLeft="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_collectable_items" />
@@ -90,14 +83,13 @@
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/collectable_items_filters">
-            </androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintTop_toBottomOf="@+id/collectable_items_filters" />
 
             <include
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/include_pagination"
                 layout="@layout/pagination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
 
@@ -108,10 +100,10 @@
                 />
 
             <include
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/bottom_app_bar"
                 layout="@layout/bottom_app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

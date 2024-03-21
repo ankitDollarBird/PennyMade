@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import androidx.core.view.ViewCompat;
 import androidx.lifecycle.Observer;
@@ -15,16 +14,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.pennymead.R;
 import com.example.pennymead.databinding.ActivityHomePageBinding;
-import com.example.pennymead.model.home.CategoriesData;
-import com.example.pennymead.model.home.CollectableItemsListData;
-import com.example.pennymead.model.home.CollectablesItemsData;
+import com.example.pennymead.model.CategoriesData;
+import com.example.pennymead.model.CollectableItemsListData;
+import com.example.pennymead.model.CollectablesItemsData;
 import com.example.pennymead.page.BaseActivity;
 import com.example.pennymead.page.checkout.CheckOutForPrivacyPolicy;
 import com.example.pennymead.page.home.adapter.CategoriesViewModel;
 import com.example.pennymead.page.home.adapter.CollectableItemsAdapter;
+import com.example.pennymead.page.home.adapter.CustomDropDownAdapter;
 import com.example.pennymead.page.home.viewmodel.CategoriesAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HomePageActivity extends BaseActivity {
@@ -41,10 +42,10 @@ public class HomePageActivity extends BaseActivity {
     View view;
     int previousPage;
     int nextPage;
-
     int selectedPage = 1;
     int previousSelectedPage = 1;
     int firstPage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,24 +68,28 @@ public class HomePageActivity extends BaseActivity {
                 adapterListCategories.getListCategoriesList((ArrayList<CategoriesData>) listCategoriesData);
                 adapterListCategories.notifyDataSetChanged();
                 hideProgressingView();
+                homePageBinding.collectablesScrollview.scrollTo(0, homePageBinding.tvCollectables.getTop());
+
             }
         });
 
         //Exposed Dropdown menu
         String[] items = getResources().getStringArray(R.array.collectables_items);
-        ArrayAdapter filterArrayAdapter = new ArrayAdapter<>(HomePageActivity.this, R.layout.filters_dropdown_item, items);
+        CustomDropDownAdapter adapter = new CustomDropDownAdapter(this, android.R.layout.simple_spinner_dropdown_item, Arrays.asList(items));
+        homePageBinding.collectableItemsFilters.atvFilters.setAdapter(adapter);
         homePageBinding.collectableItemsFilters.atvFilters.setText(items[0], false);
+        adapter.setSelectedPosition(0);
         homePageBinding.collectableItemsFilters.atvFilters.setDropDownBackgroundDrawable(getResources().getDrawable(R.drawable.filters_items_background));
-        homePageBinding.collectableItemsFilters.atvFilters.setAdapter(filterArrayAdapter);
-        Log.d("previous filter value is", previousFilter);
         showProgressingView();
-        //Collectables
+
+
+        //Collectables Items
         callViewModel(selectedFilter, 1);
-
-
+        //filters
         homePageBinding.collectableItemsFilters.atvFilters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                adapter.setSelectedPosition(position);
                 Log.d("previous filter value is", previousFilter);
                 selectedFilter = parent.getItemAtPosition(position).toString();
 
@@ -99,16 +104,6 @@ public class HomePageActivity extends BaseActivity {
                     callViewModel(selectedFilter, 1);
                     previousFilter = selectedFilter;
                 }
-
-
-            }
-        });
-
-        homePageBinding.bottomAppBar.tvTermsCondition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(getApplicationContext(), CheckOutForPrivacyPolicy.class);
-                startActivity(intent);
             }
         });
 
@@ -126,7 +121,6 @@ public class HomePageActivity extends BaseActivity {
             public void onClick(View v) {
                 selectedPage = Integer.parseInt(homePageBinding.includePagination.btnSecond.getText().toString());
                 callViewModel(selectedFilter, selectedPage);
-
             }
         });
         homePageBinding.includePagination.btnLastSecond.setOnClickListener(new View.OnClickListener() {
@@ -134,10 +128,9 @@ public class HomePageActivity extends BaseActivity {
             public void onClick(View v) {
                 selectedPage = Integer.parseInt(homePageBinding.includePagination.btnLastSecond.getText().toString());
                 callViewModel(selectedFilter, selectedPage);
-
-
             }
         });
+
         homePageBinding.includePagination.btnLast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,6 +139,7 @@ public class HomePageActivity extends BaseActivity {
 
             }
         });
+        //Search
         homePageBinding.includePagination.tvGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,6 +147,7 @@ public class HomePageActivity extends BaseActivity {
                 callViewModel(selectedFilter, selectedPage);
             }
         });
+        //Next Page Number
         homePageBinding.includePagination.btnGreaterThan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,6 +160,7 @@ public class HomePageActivity extends BaseActivity {
                 }
             }
         });
+        //previous page Number
         homePageBinding.includePagination.btnLessThan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,13 +174,7 @@ public class HomePageActivity extends BaseActivity {
                 Log.d("selected page is", selectedPage + "");
             }
         });
-        homePageBinding.homePageHeader.sideMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("The side menu is clicked", "in home page");
 
-            }
-        });
 
         //Collectables adapter calling
         homePageBinding.rvListCategories.setNestedScrollingEnabled(false);
@@ -198,6 +188,14 @@ public class HomePageActivity extends BaseActivity {
         homePageBinding.rvCollectableItems.setLayoutManager(new LinearLayoutManager(this));
         homePageBinding.rvCollectableItems.setAdapter(collectableItemsAdapter);
 
+        //terms and condition
+        homePageBinding.bottomAppBar.tvTermsCondition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(getApplicationContext(), CheckOutForPrivacyPolicy.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void callViewModel(String filters, int pageNumber) {
@@ -219,7 +217,8 @@ public class HomePageActivity extends BaseActivity {
 
                 Log.d("collectableItemsListData--------->", "next page is " + nextPage + "in Base activity");
                 firstPage = collectableItemsListData.getFirstPage();
-
+                homePageBinding.includePagination.btnLast.setText(totalPages + "");
+                homePageBinding.includePagination.btnLastSecond.setText(--totalPages + "");
                 if (pageNumber == firstPage) {
                     homePageBinding.includePagination.btnLessThan.setVisibility(View.INVISIBLE);
                 } else if (pageNumber == totalPages) {
@@ -232,20 +231,28 @@ public class HomePageActivity extends BaseActivity {
 
                 isPagesEqual();
 
-                if(totalPages==1 ){
-                    homePageBinding.includePagination.btnLessThan.setVisibility(View.INVISIBLE);
-                    homePageBinding.includePagination.btnGreaterThan.setVisibility(View.INVISIBLE);
+                if (totalPages == 1) {
+                    onPageLessThanFive();
                     homePageBinding.includePagination.btnFirst.setVisibility(View.INVISIBLE);
                     homePageBinding.includePagination.btnSecond.setVisibility(View.INVISIBLE);
                     homePageBinding.includePagination.btnLast.setVisibility(View.INVISIBLE);
                     homePageBinding.includePagination.btnLastSecond.setVisibility(View.INVISIBLE);
-                    homePageBinding.includePagination.searchPageLayout.setVisibility(View.INVISIBLE);
                     homePageBinding.includePagination.btnMiddle.setText("1");
-                }
-                else if(totalPages==5){
-                    homePageBinding.includePagination.btnLessThan.setVisibility(View.INVISIBLE);
-                    homePageBinding.includePagination.btnGreaterThan.setVisibility(View.INVISIBLE);
-                    homePageBinding.includePagination.searchPageLayout.setVisibility(View.INVISIBLE);
+                } else if (totalPages == 2) {
+                    homePageBinding.includePagination.btnLast.setVisibility(View.INVISIBLE);
+                    homePageBinding.includePagination.btnLastSecond.setVisibility(View.INVISIBLE);
+                    homePageBinding.includePagination.btnMiddle.setVisibility(View.INVISIBLE);
+                    onPageLessThanFive();
+                } else if (totalPages == 3) {
+                    homePageBinding.includePagination.btnLast.setVisibility(View.INVISIBLE);
+                    homePageBinding.includePagination.btnLastSecond.setVisibility(View.INVISIBLE);
+                    onPageLessThanFive();
+
+                } else if (totalPages == 4) {
+                    homePageBinding.includePagination.btnLast.setVisibility(View.INVISIBLE);
+
+                } else if (totalPages == 5) {
+                    onPageLessThanFive();
                     homePageBinding.includePagination.btnMiddle.setText("3");
                 }
             }
@@ -256,8 +263,6 @@ public class HomePageActivity extends BaseActivity {
         if (selectedPage != previousSelectedPage) {
 
             if (selectedPage <= (totalPages / 2)) {
-//                callViewModel( selectedFilter, selectedPage);
-
                 homePageBinding.includePagination.btnLast.setBackground(getResources().getDrawable(R.drawable.null_background_brown_border));
                 homePageBinding.includePagination.btnLast.setTextColor(getResources().getColor(R.color.primary_color));
 
@@ -286,15 +291,24 @@ public class HomePageActivity extends BaseActivity {
             previousSelectedPage = selectedPage;
         }
         hideKeyboard(HomePageActivity.this);
-
     }
-    public void focusOnView(){
+
+
+    public void focusOnView() {
         homePageBinding.collectablesScrollview.post(new Runnable() {
             @Override
             public void run() {
-                homePageBinding.collectablesScrollview.scrollTo(0,homePageBinding.tvCollectableItems.getTop());
+                homePageBinding.collectablesScrollview.scrollTo(0, homePageBinding.tvCollectableItems.getTop());
             }
         });
+    }
+
+    public void onPageLessThanFive() {
+
+        homePageBinding.includePagination.btnLessThan.setVisibility(View.INVISIBLE);
+        homePageBinding.includePagination.btnGreaterThan.setVisibility(View.INVISIBLE);
+        homePageBinding.includePagination.searchPageLayout.setVisibility(View.INVISIBLE);
+
     }
 
 }

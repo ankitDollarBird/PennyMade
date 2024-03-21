@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="8dp"
-    android:background="@null">
+    android:background="@null"
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/icon_filter"
@@ -33,23 +32,25 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
-        app:boxBackgroundColor="@null"
-        app:endIconTint="@color/black"
         android:background="@null"
+        app:boxBackgroundColor="@null"
         app:endIconDrawable="@drawable/icon_spinner_arrow"
+        app:endIconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_filters"
         app:layout_constraintTop_toTopOf="parent">
 
-        <AutoCompleteTextView
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/atv_filters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/null_background_brown_border"
-            android:textColor="@color/text_primary_black_color"
             android:inputType="none"
-            android:text="Filters" />
+            android:text="Filters"
+            android:textColor="@color/text_primary_black_color"
+            app:simpleItemSelectedColor="@color/primary_color"
+            app:simpleItemSelectedRippleColor="@color/primary_color" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

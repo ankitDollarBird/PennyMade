@@ -1,4 +1,4 @@
-package com.example.pennymead.model.home;
+package com.example.pennymead.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -11,9 +11,15 @@ public class CollectablesItems {
     String message;
     @SerializedName("data")
     CollectablesItemsData collectablesItemsData;
+    @SerializedName("categorydescription")
+    List<CategoryDescription> categoryDescription;
 
     public CollectablesItemsData getCollectablesItemsData() {
         return collectablesItemsData;
+    }
+
+    public List<CategoryDescription> getCategoryDescription() {
+        return categoryDescription;
     }
 
     public void setCollectablesItemsData(CollectablesItemsData collectablesItemsData) {

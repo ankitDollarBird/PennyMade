@@ -1,4 +1,4 @@
-package com.example.pennymead.model.home;
+package com.example.pennymead.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -16,7 +16,7 @@ public class CategoriesData {
     @SerializedName("category")
     String category;
 
-    public  String getTitle() {
+    public String getTitle() {
         return title;
     }
 
@@ -24,7 +24,7 @@ public class CategoriesData {
         return name;
     }
 
-    public  List<String> getImage() {
+    public List<String> getImage() {
         return image;
     }
 

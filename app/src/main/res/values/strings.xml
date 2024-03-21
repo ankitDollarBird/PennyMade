@@ -1,28 +1,77 @@
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
     <string name="app_name">Pennymead</string>
-    <string name="top_app_bar_name">PENNYMEAD.COM</string>
+
     <string name="follow_us_on">Follow us on</string>
 
     <string-array name="collectables_items">
-        <item>Newest Items </item>
-        <item>Author </item>
-        <item>Title </item>
-        <item>Price-High </item>
-        <item>Price-Low </item>
+        <item>Newest Items</item>
+        <item>Author</item>
+        <item>Title</item>
+        <item>Price-High</item>
+        <item>Price-Low</item>
     </string-array>
 
     <string name="address">
-        Pennymead Auctions and Books.  Proprietor David Druett. VAT Reg. No. 355701208 \n \n
-
-1 Brewerton Street \n
-Knaresborough \n
-North Yorkshire \n
-HG5 8AZ  \n\n
-
-Telephone: 01423 865962  E-mail: pennymead@aol.com or pennymeadbooks at hotmail.co.uk \n\n
-
-Pennymead Auctions/Books is a one man business which I started in 1982.  I trade from my home in Knaresborough and welcome customers by appointment.
+        Pennymead Auctions and Books.  Proprietor David Druett. VAT Reg. No. 355701208 \n \n1 Brewerton Street \nKnaresborough \nNorth Yorkshire \nHG5 8AZ  \n\nTelephone: 01423 865962  E-mail: pennymead@aol.com or pennymeadbooks at hotmail.co.uk \n\nPennymead Auctions/Books is a one man business which I started in 1982.  I trade from my home in Knaresborough and welcome customers by appointment.
+    </string>
+    <string name="top_app_bar_name">PENNYMEAD.COM</string>
+    <string name="shipping">
+        Postage and packing are charged as an extra but this includes insurance cover while in transit. \n\nStamps, covers and postcards have a flat rate postage charge.  You may order as many as you wish and the charges will remain as follows:- Inland £1  Europe £2  Worldwide £2.50 \n\nOn orders of books and maps I will advise the shipping cost having weighed the items.  This will be at cost + £1 for packing materials.  An invoice will then be sent for the total amount.  If this proves unacceptable please advise and the order will be cancelled.
     </string>
 
+    <string name="payment">
+        Payment can be made by credit or debit card (except AMEX) or by Sterling cheque or U.S. or Canadian dollar cheque or in Euros in cash.  (Credit card transactions are handled by Sage Pay directly - a link will be given to take you to their site)\n\n
+Cancellations\n\nOrders may be cancelled without penalty before dispatch. Please send an e mail to let me know you have changed your mind.
+    </string>
+
+    <string name="privacy_policy">
+        This privacy policy sets out how pennymead.com uses and protects any information that you give pennymead.com when you use this website.\n\n
+Pennymead.com is committed to ensuring that your privacy is protected. Should we ask you to provide certain information by which you can be identified when using this website, then you can be assured that it will only be used in accordance with this privacy statement.\n\n
+Pennymead.com may change this policy from time to time by updating this page. You should check this page from time to time to ensure that you are happy with any changes. This policy is effective from 26 April 2012.\n\n
+What we collect\n\n
+We may collect the following information:\n\n
+ \u2022 name and job title \n
+ \u2022 contact information including email address \n
+ \u2022 demographic information such as postcode, preferences and interests \n
+ \u2022 other information relevant to customer surveys and/or offers \n\n
+What we do with the information we gather \n\n
+We require this information to understand your needs and provide you with a better service, and in particular for the following reasons:\n\n
+ \u2022 Internal record keeping. \n
+ \u2022 We may use the information to improve our products and services. \n
+ \u2022 We may periodically send promotional emails about new products, special offers or other information which we think you may find interesting using the email address which you have provided.
+    </string>
+
+    <string name="security">
+        We are committed to ensuring that your information is secure. In order to prevent unauthorised access or disclosure, we have put in place suitable physical, electronic and managerial procedures to safeguard and secure the information we collect online. \n\n
+
+How we use cookies\n\n
+
+A cookie is a small file which asks permission to be placed on your computer\'s hard drive. Once you agree, the file is added and the cookie helps analyse web traffic or lets you know when you visit a particular site. Cookies allow web applications to respond to you as an individual. The web application can tailor its operations to your needs, likes and dislikes by gathering and remembering information about your preferences.\n\n
+
+We use traffic log cookies to identify which pages are being used. This helps us analyse data about web page traffic and improve our website in order to tailor it to customer needs. We only use this information for statistical analysis purposes and then the data is removed from the system.\n\n
+
+Overall, cookies help us provide you with a better website, by enabling us to monitor which pages you find useful and which you do not. A cookie in no way gives us access to your computer or any information about you, other than the data you choose to share with us.\n\n
+
+You can choose to accept or decline cookies. Most web browsers automatically accept cookies, but you can usually modify your browser setting to decline cookies if you prefer. This may prevent you from taking full advantage of the website.\n\n
+    </string>
+    <string name="controlling_your_personal_information">
+        You may choose to restrict the collection or use of your personal information in the following ways:\n\n
+whenever you are asked to fill in a form on the website, look for the box that you can click to indicate that you do not want the information to be used by anybody for direct marketing purposes\n\n
+if you have previously agreed to us using your personal information for direct marketing purposes, you may change your mind at any time by writing to or emailing us at pennymead@aol.com\n\n
+We will not sell, distribute or lease your personal information to third parties.\n\n
+You may request details of personal information which we hold about you under the Data Protection Act 1998. A small fee will be payable. If you would like a copy of the information held on you please write to 1 Brewerton Street, Knaresborough, North Yorkshire, HG5 8AZ, UK.\n\n
+If you believe that any information we are holding on you is incorrect or incomplete, please write to or email us as soon as possible, at the above address. We will promptly correct any information found to be incorrect.\n\n
+    </string>
+    <string name="town_of_knaresborough">
+        The town of Knaresborough has plenty to offer visitors, particularly on warm summer days.  It makes a good base to explore the Yorkshire Dales and cities of York and Leeds.\n\n
+
+I can recommend a good hotel and also a very good B. &amp; B. both in Knaresborough town centre, also several good pubs.  \n\n
+
+Callers are welcome to my home by appointment.\n\n
+
+I have a small stock of books, prints and old postcards of Knaresborough for sale.
+    </string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
 </resources>

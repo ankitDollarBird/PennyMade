@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/primary_background"
-    android:elevation="12dp"
-    android:layout_marginTop="8dp"
     android:layout_marginStart="8dp"
-    android:layout_marginBottom="8dp"
+    android:layout_marginTop="8dp"
     android:layout_marginEnd="8dp"
-    android:padding="8dp">
+    android:layout_marginBottom="8dp"
+    android:background="@color/primary_background"
+    android:elevation="7.5dp"
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/img_list_categories"
         android:layout_width="100dp"
         android:layout_height="120dp"
-        android:src="@drawable/img_items"
+        android:src="@drawable/not_found_img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,11 +24,12 @@
         android:id="@+id/tv_title_list_categories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="automation testing"
+        android:layout_marginTop="16dp"
         android:ellipsize="end"
         android:maxLines="3"
+        android:text="automation testing"
+        android:textAlignment="center"
         android:textColor="@color/text_primary_black_color"
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_list_categories" />
@@ -41,6 +41,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:text="Philatelic Books"
+        android:textAlignment="center"
         android:textColor="@color/text_primary_black_color"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

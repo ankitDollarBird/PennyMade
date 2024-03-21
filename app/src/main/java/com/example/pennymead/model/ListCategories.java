@@ -1,4 +1,4 @@
-package com.example.pennymead.model.home;
+package com.example.pennymead.model;
 
 import com.google.gson.annotations.SerializedName;
 

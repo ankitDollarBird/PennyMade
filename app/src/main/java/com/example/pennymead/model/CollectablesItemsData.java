@@ -1,4 +1,4 @@
-package com.example.pennymead.model.home;
+package com.example.pennymead.model;
 
 import android.util.Log;
 
@@ -21,24 +21,24 @@ public class CollectablesItemsData {
     int firstPage;
 
     public int getLastPage() {
-        Log.d("Last page is",totalPages+"  in Collectables Items data class");
+        Log.d("Last page is", totalPages + "  in Collectables Items data class");
         return lastPage;
     }
 
     public int getTotalPages() {
-        Log.d("total page is",totalPages+"  in Collectables Items data class");
+        Log.d("total page is", totalPages + "  in Collectables Items data class");
         return totalPages;
     }
 
 
     public int getPreviousPage() {
 
-        Log.d("previous page is",previousPage+" in Collectables Items data class");
+        Log.d("previous page is", previousPage + " in Collectables Items data class");
         return previousPage;
     }
 
     public int getNextPage() {
-        Log.d("next page is",nextPage+" in Collectables Items data class");
+        Log.d("next page is", nextPage + " in Collectables Items data class");
         return nextPage;
     }
 
