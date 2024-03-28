@@ -1,4 +1,4 @@
-package com.example.pennymead.page.home.viewmodel;
+package com.example.pennymead.page.home.adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.pennymead.R;
 import com.example.pennymead.model.CategoriesData;
 import com.example.pennymead.page.catalogue.CatalogueListActivity;
@@ -20,6 +21,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Li
 
     ArrayList<CategoriesData> listCategoriesDataList;
     Intent intent;
+    ArrayList<String> categoriesName = new ArrayList<>();
+    ArrayList<String> categoriesNumber = new ArrayList<>();
 
     @NonNull
     @Override
@@ -31,6 +34,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Li
 
     @Override
     public void onBindViewHolder(@NonNull CategoriesAdapter.ListCategoryViewHolder holder, int position) {
+            categoriesName.add(listCategoriesDataList.get(position).getName());
+            categoriesNumber.add(listCategoriesDataList.get(position).getCategory());
             holder.tvName.setText(listCategoriesDataList.get(position).getName());
             holder.tvTitle.setText(listCategoriesDataList.get(position).getTitle());
             if(listCategoriesDataList.get(position).getImage()!=null) {
@@ -43,7 +48,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Li
                 @Override
                 public void onClick(View v) {
                     intent = new Intent(v.getContext(), CatalogueListActivity.class);
-                    intent.putExtra("collectables",listCategoriesDataList.get(position).getName());
+                    intent.putExtra("Category Position", position);
+                    intent.putStringArrayListExtra("Categories Name", categoriesName);
+                    intent.putStringArrayListExtra("Categories Number", categoriesNumber);
                     v.getContext().startActivity(intent);
                 }
             });
@@ -66,6 +73,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Li
         ImageView ivItems;
       MaterialTextView tvTitle;
         MaterialTextView tvName;
+
         public ListCategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             ivItems = itemView.findViewById(R.id.img_list_categories);

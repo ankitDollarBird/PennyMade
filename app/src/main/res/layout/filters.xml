@@ -28,13 +28,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_layout_for_filters"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:background="@null"
         app:boxBackgroundColor="@null"
-        app:endIconDrawable="@drawable/icon_spinner_arrow"
+        app:endIconDrawable="@drawable/icon_spinner_down_arrow"
         app:endIconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,9 +49,8 @@
             android:background="@drawable/null_background_brown_border"
             android:inputType="none"
             android:text="Filters"
-            android:textColor="@color/text_primary_black_color"
-            app:simpleItemSelectedColor="@color/primary_color"
-            app:simpleItemSelectedRippleColor="@color/primary_color" />
+            android:popupElevation="30dp"
+            android:textColor="@color/text_primary_black_color" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

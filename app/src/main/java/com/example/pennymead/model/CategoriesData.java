@@ -28,4 +28,7 @@ public class CategoriesData {
         return image;
     }
 
+    public String getCategory() {
+        return category;
+    }
 }
