@@ -48,6 +48,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Li
                 @Override
                 public void onClick(View v) {
                     intent = new Intent(v.getContext(), CatalogueListActivity.class);
+                    intent.putExtra("Search Term", (String) null);
+                    intent.putExtra("Reference",-1);
                     intent.putExtra("Category Position", position);
                     intent.putStringArrayListExtra("Categories Name", categoriesName);
                     intent.putStringArrayListExtra("Categories Number", categoriesNumber);

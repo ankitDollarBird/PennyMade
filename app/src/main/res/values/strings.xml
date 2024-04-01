@@ -71,6 +71,10 @@ I have a small stock of books, prints and old postcards of Knaresborough for sal
     </string>
     <string name="hyperlink"><a href="">http://www.knaresborough.co.uk/</a></string>
 
+    <string name="detail_shipping">US $74.99 eBay International Shipping. See details for shipping\nLocated in: Prospect, New York, United States\nThis item may be subject to duties and taxes upon delivery</string>
+    <string name="product_detail_delivery">Estimated between Thu, Aug 24 and Mon, Sep 18 to 560001\n\nPlease note the delivery estimate is greater than 26
+business days.\n\nSeller ships within 1 day after receiving cleared
+payment.</string>
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
 </resources>

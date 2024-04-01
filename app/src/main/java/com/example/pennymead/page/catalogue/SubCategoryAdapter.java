@@ -67,10 +67,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
     @Override
     public void getPosition(int positionOfItems, int recyclerViewPosition) {
-
         referenceId.getReference(Integer.parseInt(subCatListData.get(recyclerViewPosition).getDropdownLists().get(positionOfItems).getReferenceId()));
-
-
     }
 
 
@@ -80,10 +77,6 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         public SubCategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             data = itemView.findViewById(R.id.customDropdownMenu);
-        }
-
-        private int getPositionOfSubCat() {
-            return getAdapterPosition();
         }
     }
 

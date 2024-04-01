@@ -1,11 +1,14 @@
 package com.example.pennymead.viewmodel;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.pennymead.model.CategoriesData;
 import com.example.pennymead.model.CollectablesItems;
 import com.example.pennymead.model.CollectablesItemsData;
+import com.example.pennymead.model.ProductDetail;
 import com.example.pennymead.model.SearchCollectableItems;
 import com.example.pennymead.model.SearchData;
 import com.example.pennymead.model.SubCategoryDropdownListData;
@@ -35,6 +38,7 @@ public class CategoriesViewModel extends ViewModel {
 
 
     public MutableLiveData<List<SubCategoryDropdownListData>> getSubCategoryLiveDropdownList(int category) {
+        Log.d("Data---------->","ProductList 2");
         return repo.getLiveDataSubCategoryDropdownList(category);
     }
 
@@ -43,9 +47,10 @@ public class CategoriesViewModel extends ViewModel {
     }
 
     public MutableLiveData<SearchCollectableItems> getCollectableItemsBySearch(SearchData searchData) {
-
-
         return repo.getLiveDataCollectableItemsBySearch(searchData);
+    }
+    public MutableLiveData<ProductDetail> getCollectableRelatedItems(String sysId) {
+        return repo.getLiveDataCollectableRelatedItems(sysId);
     }
 
 }
