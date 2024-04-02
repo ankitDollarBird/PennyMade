@@ -1,12 +1,14 @@
 package com.example.pennymead.page;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
@@ -14,21 +16,33 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.pennymead.R;
 import com.example.pennymead.databinding.ActivityBaseBinding;
+import com.example.pennymead.page.checkout.CheckOutForPrivacyPolicy;
+import com.example.pennymead.page.home.HomePageActivity;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaseActivity extends AppCompatActivity {
     ViewGroup progressView;
-    protected boolean isProgressShowing = false;
+    boolean isProgressShowing = false;
+    boolean isDataNotFoundShowing = false;
     ViewGroup dataNotFound;
     public ActionBarDrawerToggle drawerToggle;
     ActivityBaseBinding binding;
     DrawerLayout drawerLayout;
-
+    int previousItemId = R.id.nav_home;
+    Intent intent;
+    Context context;
+    List<String> categoriesName;
+    List<String> categoriesNumber;
+    Class activity;
 
     @Override
     public void setContentView(View view) {
@@ -36,6 +50,7 @@ public class BaseActivity extends AppCompatActivity {
         FrameLayout container = drawerLayout.findViewById(R.id.activity_container);
         container.addView(view);
         super.setContentView(drawerLayout);
+        activity = getClass();
 
         drawerLayout.findViewById(R.id.top_app_bar).findViewById(R.id.side_menu).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,12 +60,23 @@ public class BaseActivity extends AppCompatActivity {
         });
     }
 
+    public boolean isInternetConnected(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(context.CONNECTIVITY_SERVICE);
+
+        boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
+        if (connected) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityBaseBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        this.getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.black));
     }
 
     public void callNavigationDrawer() {
@@ -65,17 +91,40 @@ public class BaseActivity extends AppCompatActivity {
 
         NavigationView nav = findViewById(R.id.nav_drawer_view);
         ConstraintLayout v = (ConstraintLayout) nav.getHeaderView(0);
-        ImageButton button = (ImageButton) v.findViewById(R.id.btn_back_from_nav);
-        button.setOnClickListener(new View.OnClickListener() {
+        ImageButton btnNavBack = (ImageButton) v.findViewById(R.id.btn_back_from_nav);
+        btnNavBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("BackButton-------------->", "is pressed");
                 drawer.closeDrawer(GravityCompat.END);
             }
         });
 
+        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                drawer.closeDrawer(GravityCompat.END);
+                int itemId = item.getItemId();
+                if (itemId == R.id.nav_home && activity != HomePageActivity.class) {
+                    drawer.closeDrawer(GravityCompat.END);
+                    startActivity(new Intent(BaseActivity.this, HomePageActivity.class));
 
+                    previousItemId = itemId;
+                } else if (itemId == R.id.nav_about_us) {
+                    drawer.closeDrawer(GravityCompat.END);
+                } else if (itemId == R.id.nav_track_order) {
+                    drawer.closeDrawer(GravityCompat.END);
+                } else if (itemId == R.id.nav_contact_us && activity != CheckOutForPrivacyPolicy.class) {
+                    drawer.closeDrawer(GravityCompat.END);
+                    showProgressingView();
+                    openCheckoutPageOfTermsAndCondition();
+                    hideProgressingView();
+                }
+
+                return true;
+            }
+        });
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -103,20 +152,41 @@ public class BaseActivity extends AppCompatActivity {
         isProgressShowing = false;
     }
 
-    public static void hideKeyboard(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
 
-        View view = activity.getCurrentFocus();
-        if (view == null) {
-            view = new View(activity);
+    public void onDataNotFound(Context context) {
+        hideProgressingView();
+        if (!isDataNotFoundShowing) {
+            isDataNotFoundShowing = true;
+            dataNotFound = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.error, null);
+            View v = this.findViewById(android.R.id.content).getRootView();
+            ViewGroup viewGroup = (ViewGroup) v;
+            viewGroup.addView(dataNotFound);
         }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        dataNotFound.findViewById(R.id.close_data_not_found).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideDataNotFoundView();
+            }
+        });
     }
 
-    public void onDataNotFound() {
-        dataNotFound = (ViewGroup) getLayoutInflater().inflate(R.layout.error, null);
+    public void hideDataNotFoundView() {
         View v = this.findViewById(android.R.id.content).getRootView();
         ViewGroup viewGroup = (ViewGroup) v;
-        viewGroup.addView(dataNotFound);
+        viewGroup.removeView(dataNotFound);
+        isDataNotFoundShowing = false;
+    }
+
+    public void openCheckoutPageOfTermsAndCondition() {
+        Intent intent = new Intent(getApplicationContext(), CheckOutForPrivacyPolicy.class);
+        intent.putStringArrayListExtra("Categories Name", (ArrayList<String>) categoriesName);
+        intent.putStringArrayListExtra("Categories Number", (ArrayList<String>) categoriesNumber);
+        startActivity(intent);
+    }
+
+    public void dataForCheckoutPageOfTermsAndCondition(List<String> items, List<String> categoryNumber) {
+
+        this.categoriesName = items;
+        this.categoriesNumber = categoryNumber;
     }
 }

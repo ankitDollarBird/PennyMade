@@ -13,7 +13,7 @@
     </string-array>
 
     <string name="address">
-        Pennymead Auctions and Books.  Proprietor David Druett. VAT Reg. No. 355701208 \n \n1 Brewerton Street \nKnaresborough \nNorth Yorkshire \nHG5 8AZ  \n\nTelephone: 01423 865962  E-mail: pennymead@aol.com or pennymeadbooks at hotmail.co.uk \n\nPennymead Auctions/Books is a one man business which I started in 1982.  I trade from my home in Knaresborough and welcome customers by appointment.
+        Pennymead Auctions and Books.  Proprietor David Druett. VAT Reg. No. 355701208 \n \n1 Brewerton Street \nKnaresborough \nNorth Yorkshire \nHG5 8AZ  \n\n<b>Telephone:</b> 01423 865962\n\n<b>E-mail:</b> pennymead@aol.com or pennymeadbooks at hotmail.co.uk \n\nPennymead Auctions/Books is a one man business which I started in 1982.  I trade from my home in Knaresborough and welcome customers by appointment.
     </string>
     <string name="top_app_bar_name">PENNYMEAD.COM</string>
     <string name="shipping">
@@ -21,8 +21,7 @@
     </string>
 
     <string name="payment">
-        Payment can be made by credit or debit card (except AMEX) or by Sterling cheque or U.S. or Canadian dollar cheque or in Euros in cash.  (Credit card transactions are handled by Sage Pay directly - a link will be given to take you to their site)\n\n
-Cancellations\n\nOrders may be cancelled without penalty before dispatch. Please send an e mail to let me know you have changed your mind.
+        Payment can be made by credit or debit card (except AMEX) or by Sterling cheque or U.S. or Canadian dollar cheque or in Euros in cash.  (Credit card transactions are handled by Sage Pay directly - a link will be given to take you to their site)\n\n<b>Cancellations</b>\n\nOrders may be cancelled without penalty before dispatch. Please send an e mail to let me know you have changed your mind.
     </string>
 
     <string name="privacy_policy">
@@ -43,9 +42,7 @@ We require this information to understand your needs and provide you with a bett
     </string>
 
     <string name="security">
-        We are committed to ensuring that your information is secure. In order to prevent unauthorised access or disclosure, we have put in place suitable physical, electronic and managerial procedures to safeguard and secure the information we collect online. \n\n
-
-How we use cookies\n\n
+        We are committed to ensuring that your information is secure. In order to prevent unauthorised access or disclosure, we have put in place suitable physical, electronic and managerial procedures to safeguard and secure the information we collect online. \n\n<b>How we use cookies</b>\n\n
 
 A cookie is a small file which asks permission to be placed on your computer\'s hard drive. Once you agree, the file is added and the cookie helps analyse web traffic or lets you know when you visit a particular site. Cookies allow web applications to respond to you as an individual. The web application can tailor its operations to your needs, likes and dislikes by gathering and remembering information about your preferences.\n\n
 
@@ -72,6 +69,8 @@ Callers are welcome to my home by appointment.\n\n
 
 I have a small stock of books, prints and old postcards of Knaresborough for sale.
     </string>
+    <string name="hyperlink"><a href="">http://www.knaresborough.co.uk/</a></string>
+
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
 </resources>

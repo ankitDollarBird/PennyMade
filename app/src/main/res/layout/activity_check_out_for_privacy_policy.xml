@@ -20,6 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <include
+                android:id="@+id/checkout_sub_cat_menu"
+                layout="@layout/sub_categories_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_contact_information"
                 android:layout_width="wrap_content"
@@ -31,7 +39,7 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/checkout_sub_cat_menu" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/multiAutoCompleteTextView"
@@ -206,11 +214,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginRight="16dp"
                 android:text="@string/security"
                 android:textColor="@color/text_secondary_black_color"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_security" />
 
@@ -289,6 +298,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_town_of_knaresborough" />
 
+            <TextView
+                android:id="@+id/sites_about_knaresborough"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="Sites about Knaresborough"
+                android:textColor="@color/text_secondary_black_color"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_town_of_knaresborough_content" />
+
+            <TextView
+                android:id="@+id/link_knaresborough"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/hyperlink"
+                android:textColorLink="@color/text_secondary_black_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sites_about_knaresborough" />
+
             <include
                 android:id="@+id/bottom_app_bar"
                 layout="@layout/bottom_app_bar"
@@ -298,7 +331,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_town_of_knaresborough_content" />
+                app:layout_constraintTop_toBottomOf="@id/link_knaresborough" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

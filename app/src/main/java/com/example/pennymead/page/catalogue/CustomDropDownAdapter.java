@@ -1,4 +1,4 @@
-package com.example.pennymead.page.home.adapter;
+package com.example.pennymead.page.catalogue;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -17,7 +17,7 @@ import java.util.List;
 public class CustomDropDownAdapter extends ArrayAdapter<String> {
     private Context mContext;
     private List<String> mItems;
-int mSelectedPosition=-1;
+    int mSelectedPosition = -1;
 
     public CustomDropDownAdapter(@NonNull Context context, int resource, @NonNull List<String> objects) {
         super(context, resource, objects);
@@ -59,5 +59,5 @@ int mSelectedPosition=-1;
         mSelectedPosition = position;
         notifyDataSetChanged();
     }
-}
 
+}
