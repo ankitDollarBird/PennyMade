@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Filters"
+        android:text="@string/text_filter"
         android:textColor="@color/text_primary_black_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/icon_filter"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/null_background_brown_border"
             android:inputType="none"
-            android:text="Filters"
+            android:text="@string/text_filter"
             android:popupElevation="30dp"
             android:textColor="@color/text_primary_black_color" />
 

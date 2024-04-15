@@ -14,7 +14,7 @@
     <color name="text_white_color">#FFFFFFFF</color>
     <color name="text_primary_black_color">#454545</color>
     <color name="text_secondary_black_color">#000000</color>
-    <color name="text_link_color">#781E02</color>
+    <color name="text_link_color">#166DB1</color>
     <color name="progress_background">#BAF4F2F2</color>
     <color name="transparent">#80FFFFFF</color>
     <color name="button_secondary_color">#FFE6D0</color>

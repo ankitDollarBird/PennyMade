@@ -82,6 +82,7 @@ public class CustomDropdownMenu extends LinearLayout {
                     inputLayout.setEndIconDrawable(getResources().getDrawable(R.drawable.icon_spinner_up_arrow));
                     setDropdownListItems.showDropDown();
                     isEndIconCLicked = 1;
+                    isClicked = 0;
                 } else {
                     inputLayout.setEndIconDrawable(getResources().getDrawable(R.drawable.icon_spinner_down_arrow));
                     isEndIconCLicked = 0;
@@ -93,7 +94,9 @@ public class CustomDropdownMenu extends LinearLayout {
     public void onClick(View v) {
         if (isClicked == 0) {
             inputLayout.setEndIconDrawable(getResources().getDrawable(R.drawable.icon_spinner_up_arrow));
+            setDropdownListItems.showDropDown();
             isClicked = 1;
+            isEndIconCLicked = 0;
         } else {
             inputLayout.setEndIconDrawable(getResources().getDrawable(R.drawable.icon_spinner_down_arrow));
             isClicked = 0;

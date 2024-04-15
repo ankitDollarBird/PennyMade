@@ -1,44 +1,56 @@
 <resources>
 
     <string name="app_name">Pennymead</string>
+    <string name="top_app_bar_name">PENNYMEAD.COM</string>
 
     <string name="follow_us_on">Follow us on</string>
+    <string name="collectables">Collectables</string>
+    <string name="collectables_items">Collectable Items</string>
 
-    <string-array name="collectables_items">
+    <string-array name="filters_of_collectable_items">
         <item>Newest Items</item>
         <item>Author</item>
         <item>Title</item>
         <item>Price-High</item>
         <item>Price-Low</item>
     </string-array>
+    <string-array name="payment_method">
+        <item>Credit/Debit Card</item>
+        <item>Bank transfer(sterling payments ONLY)</item>
+        <item>Sterling cheque</item>
+        <item>Cash</item>
+        <item>Other(Please use "Notes" to specify)</item>
+    </string-array>
 
-    <string name="address">
-        Pennymead Auctions and Books.  Proprietor David Druett. VAT Reg. No. 355701208 \n \n1 Brewerton Street \nKnaresborough \nNorth Yorkshire \nHG5 8AZ  \n\n<b>Telephone:</b> 01423 865962\n\n<b>E-mail:</b> pennymead@aol.com or pennymeadbooks at hotmail.co.uk \n\nPennymead Auctions/Books is a one man business which I started in 1982.  I trade from my home in Knaresborough and welcome customers by appointment.
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="whole_catalogue">Whole Catalogue</string>
+    <string name="this_category">This Category</string>
+    <string name="search_description">Search by description</string>
+    <string name="toast_message">Item has been added to the cart.</string>
+    <string name="pagination_go_to">Go To Page</string>
+    <string name="view_all_button">View all</string>
+    <string name="text_check_out">Check out</string>
+    <string name="button_continue">Continue</string>
+    <string name="text_filter">Filters</string>
+    <string name="layout_text_data_not_found">Oops\nSomething went wrong!!\nPlease try again...</string>
+
+    <string name="to_open_contact_us_page">Copyright © 2023, Pennymead | All Rights Reserved | Terms &amp; Conditions | Privacy Policy</string>
+
+    <string name="allowed_range">Page number should be in allowed range</string>
+    <string name="address">Pennymead Auctions and Books.  Proprietor David Druett. VAT Reg. No. 355701208 \n \n1 Brewerton Street \nKnaresborough \nNorth Yorkshire \nHG5 8AZ  \n\n<b>Telephone:</b> 01423 865962\n\n<b>E-mail:</b> pennymead@aol.com or pennymeadbooks at hotmail.co.uk \n\nPennymead Auctions/Books is a one man business which I started in 1982.  I trade from my home in Knaresborough and welcome customers by appointment.
     </string>
-    <string name="top_app_bar_name">PENNYMEAD.COM</string>
-    <string name="shipping">
-        Postage and packing are charged as an extra but this includes insurance cover while in transit. \n\nStamps, covers and postcards have a flat rate postage charge.  You may order as many as you wish and the charges will remain as follows:- Inland £1  Europe £2  Worldwide £2.50 \n\nOn orders of books and maps I will advise the shipping cost having weighed the items.  This will be at cost + £1 for packing materials.  An invoice will then be sent for the total amount.  If this proves unacceptable please advise and the order will be cancelled.
+    <string name="shipping">Postage and packing are charged as an extra but this includes insurance cover while in transit. \n\nStamps, covers and postcards have a flat rate postage charge.  You may order as many as you wish and the charges will remain as follows:- Inland £1  Europe £2  Worldwide £2.50 \n\nOn orders of books and maps I will advise the shipping cost having weighed the items.  This will be at cost + £1 for packing materials.  An invoice will then be sent for the total amount.  If this proves unacceptable please advise and the order will be cancelled.
     </string>
 
-    <string name="payment">
-        Payment can be made by credit or debit card (except AMEX) or by Sterling cheque or U.S. or Canadian dollar cheque or in Euros in cash.  (Credit card transactions are handled by Sage Pay directly - a link will be given to take you to their site)\n\n<b>Cancellations</b>\n\nOrders may be cancelled without penalty before dispatch. Please send an e mail to let me know you have changed your mind.
+    <string name="payment">Payment can be made by credit or debit card (except AMEX) or by Sterling cheque or U.S. or Canadian dollar cheque or in Euros in cash.  (Credit card transactions are handled by Sage Pay directly - a link will be given to take you to their site)\n\n<b>Cancellations</b>\n\nOrders may be cancelled without penalty before dispatch. Please send an e mail to let me know you have changed your mind.
     </string>
 
-    <string name="privacy_policy">
-        This privacy policy sets out how pennymead.com uses and protects any information that you give pennymead.com when you use this website.\n\n
+    <string name="privacy_policy">This privacy policy sets out how pennymead.com uses and protects any information that you give pennymead.com when you use this website.\n\n
 Pennymead.com is committed to ensuring that your privacy is protected. Should we ask you to provide certain information by which you can be identified when using this website, then you can be assured that it will only be used in accordance with this privacy statement.\n\n
 Pennymead.com may change this policy from time to time by updating this page. You should check this page from time to time to ensure that you are happy with any changes. This policy is effective from 26 April 2012.\n\n
 What we collect\n\n
-We may collect the following information:\n\n
- \u2022 name and job title \n
- \u2022 contact information including email address \n
- \u2022 demographic information such as postcode, preferences and interests \n
- \u2022 other information relevant to customer surveys and/or offers \n\n
-What we do with the information we gather \n\n
-We require this information to understand your needs and provide you with a better service, and in particular for the following reasons:\n\n
- \u2022 Internal record keeping. \n
- \u2022 We may use the information to improve our products and services. \n
- \u2022 We may periodically send promotional emails about new products, special offers or other information which we think you may find interesting using the email address which you have provided.
+We may collect the following information:\n\n\u2022 name and job title \n\u2022 contact information including email address \n\u2022 demographic information such as postcode, preferences and interests \n\u2022 other information relevant to customer surveys and/or offers \n\n
+What we do with the information we gather \n\nWe require this information to understand your needs and provide you with a better service, and in particular for the following reasons:\n\n\u2022 Internal record keeping. \n\u2022 We may use the information to improve our products and services. \n\u2022 We may periodically send promotional emails about new products, special offers or other information which we think you may find interesting using the email address which you have provided.
     </string>
 
     <string name="security">
@@ -60,21 +72,49 @@ We will not sell, distribute or lease your personal information to third parties
 You may request details of personal information which we hold about you under the Data Protection Act 1998. A small fee will be payable. If you would like a copy of the information held on you please write to 1 Brewerton Street, Knaresborough, North Yorkshire, HG5 8AZ, UK.\n\n
 If you believe that any information we are holding on you is incorrect or incomplete, please write to or email us as soon as possible, at the above address. We will promptly correct any information found to be incorrect.\n\n
     </string>
-    <string name="town_of_knaresborough">
-        The town of Knaresborough has plenty to offer visitors, particularly on warm summer days.  It makes a good base to explore the Yorkshire Dales and cities of York and Leeds.\n\n
-
-I can recommend a good hotel and also a very good B. &amp; B. both in Knaresborough town centre, also several good pubs.  \n\n
-
-Callers are welcome to my home by appointment.\n\n
-
-I have a small stock of books, prints and old postcards of Knaresborough for sale.
+    <string name="town_of_knaresborough">The town of Knaresborough</string>
+    <string name="sites_about_knaresborough">Sites about Knaresborough</string>
+    <string name="town_of_knaresborough_description">
+        The town of Knaresborough has plenty to offer visitors, particularly on warm summer days.  It makes a good base to explore the Yorkshire Dales and cities of York and Leeds.\n\nI can recommend a good hotel and also a very good B. &amp; B. both in Knaresborough town centre, also several good pubs.  \n\nCallers are welcome to my home by appointment.\n\nI have a small stock of books, prints and old postcards of Knaresborough for sale.
     </string>
-    <string name="hyperlink"><a href="">http://www.knaresborough.co.uk/</a></string>
-
+    <string name="link_knareborough"><a href="http://www.knaresborough.co.uk/">http://www.knaresborough.co.uk/</a></string>
     <string name="detail_shipping">US $74.99 eBay International Shipping. See details for shipping\nLocated in: Prospect, New York, United States\nThis item may be subject to duties and taxes upon delivery</string>
     <string name="product_detail_delivery">Estimated between Thu, Aug 24 and Mon, Sep 18 to 560001\n\nPlease note the delivery estimate is greater than 26
 business days.\n\nSeller ships within 1 day after receiving cleared
 payment.</string>
+    <string name="checkout_terms_and_condition">I have read and accepted the terms and conditions</string>
+
+    <string name="pagination_go"><a href="">Go &gt;</a></string>
+    <string name="category_name">Philatelic Books</string>
+    <string name="category_description">Books on philately for sale. I mostly stock out of print titles but act as agent for the West Indies Philatelic Study Group Post and packing is extra. Costs are kept to a minimum testing</string>
+    <string name="contact_information">Contact Information</string>
+    <string name="terms_of_business_info">All goods are described accurately and in good faith.  Any found not to be as described may be returned for a full refund</string>
+    <string name="delivery_info_for_checkout">Orders will be dispatched within two working days of receipt of payment.</string>
+    <string name="links_to_other_websites_info">Our website may contain links to other websites of interest. However, once you have used these links to leave our site, you should note that we do not have any control over that other website. Therefore, we cannot be responsible for the protection and privacy of any information which you provide whilst visiting such sites and such sites are not governed by this privacy statement. You should exercise caution and look at the privacy statement applicable to the website in question.</string>
+    <string name="your_details">Your Details</string>
+    <string name="checkout_email">Email</string>
+    <string name="checkout_name">Name</string>
+    <string name="checkout_address1">Address1</string>
+    <string name="checkout_address2">Address2</string>
+    <string name="checkout_town">Town/City</string>
+    <string name="checkout_phone">Phone Number</string>
+    <string name="checkout_county_state">County/state</string>
+    <string name="checkout_postal_zip">Postal/Zip code</string>
+    <string name="checkout_country">Country</string>
+    <string name="checkout_payment_method">Payment Method</string>
+    <string name="checkout_note">Note</string>
+    <string name="checkout_received_emails_condition">Receive promotional emails (not more than one per month)</string>
+    <string name="text_reviews_on">See our 44 reviews on</string>
+    <string name="click_toast"><u>Click to view</u></string>
+    <string name="text_order_summary">Order Summary</string>
+    <string name="text_total_amount_items">Total for items:</string>
+    <string name="text_delivery_address">Delivery address: </string>
+    <string name="text_order_detail">Your order has been placed. You will receive an e-mail shortly detailing how to pay for this order</string>
+    <string name="text_please_note">Please note:</string>
+    <string name="text_data_not_found">Data not found</string>
+    <string name="text_payment_invoice">Most e-mail systems nowadays use junk mail filters to filter out the huge amounts of unsolicited email being sent every day. In some cases, these filters may mark a legitimate email as junk. If you have not received your invoice e-mail within 24 hours, please check your junk mail folder to make sure it hasn\'t been put there. If you\'ve registered with the site you can also pay your invoice from your \'Track Order\' page.</string>
+
+
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
 </resources>

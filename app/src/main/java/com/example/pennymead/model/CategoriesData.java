@@ -11,8 +11,6 @@ public class CategoriesData {
     String name;
     @SerializedName("image")
     List<String> image;
-    @SerializedName("author")
-    String author;
     @SerializedName("category")
     String category;
 

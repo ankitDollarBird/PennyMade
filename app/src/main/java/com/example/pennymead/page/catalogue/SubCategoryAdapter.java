@@ -34,7 +34,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         holder.data.setText(subCatListData.get(position).getName());
         setDropdownList(position);
         holder.data.getDropdownList(subCategoriesDropdownList, this, position);
-        holder.data.setDropDownBackgroundDrawable(context.getResources().getDrawable(R.drawable.filters_items_background));
+        holder.data.setDropDownBackgroundDrawable(context.getResources().getDrawable(R.drawable.dropdown_menu_items_background));
         holder.data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

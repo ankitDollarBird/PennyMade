@@ -7,7 +7,7 @@
     android:padding="8dp"
     android:ellipsize="end"
     android:singleLine="true"
-    android:text="TextView"
+    android:layout_marginVertical="8dp"
     android:textSize="18sp">
 
 </com.google.android.material.textview.MaterialTextView>

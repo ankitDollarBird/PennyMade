@@ -17,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_catalogue_list_page"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -33,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="skjddddddddnjsk"
+                android:text="@string/category_name"
                 android:textColor="@color/text_primary_black_color"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +47,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Below is my current stock which is mostly of West Indies stamps and covers. The newest items listed are shown first. You may also select a particular country from the drop down list or do a search by subject. Post and packing is extra but does not increase however many items are ordered. Inland £1, Europe and Overseas £3"
+                android:text="@string/category_description"
                 android:textColor="@color/text_primary_black_color"
                 android:textSize="16sp"
                 android:textStyle="normal"
@@ -60,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Data not found"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="24dp"
                 android:visibility="gone"

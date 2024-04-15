@@ -4,16 +4,24 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.pennymead.model.CartItems;
 import com.example.pennymead.model.CategoriesData;
+import com.example.pennymead.model.CollectableItemsForCheckout;
 import com.example.pennymead.model.CollectablesItems;
 import com.example.pennymead.model.CollectablesItemsData;
+import com.example.pennymead.model.Country;
+import com.example.pennymead.model.CountryList;
 import com.example.pennymead.model.ListCategories;
+import com.example.pennymead.model.OrderPlacedDetail;
+import com.example.pennymead.model.OrderPlacing;
+import com.example.pennymead.model.OrderSummaryDetails;
 import com.example.pennymead.model.ProductDetail;
+import com.example.pennymead.model.RegisteredUser;
+import com.example.pennymead.model.RegisteredUserDetails;
 import com.example.pennymead.model.SearchCollectableItems;
 import com.example.pennymead.model.SearchData;
 import com.example.pennymead.model.SubCategoryDropdownList;
 import com.example.pennymead.model.SubCategoryDropdownListData;
-import com.example.pennymead.page.BaseActivity;
 import com.example.pennymead.remote.ApiModel.ApiClient;
 import com.example.pennymead.remote.ApiModel.ApiInterface;
 
@@ -30,30 +38,37 @@ public class Repository {
     MutableLiveData<List<SubCategoryDropdownListData>> liveDataSubCategoryDropdownList;
     MutableLiveData<SearchCollectableItems> liveDataCollectableItemsBySearch;
     MutableLiveData<ProductDetail> liveDataCollectablesRelatedItems;
+    MutableLiveData<List<CountryList>> liveDataCountryList;
+    MutableLiveData<CollectableItemsForCheckout> liveDataCollectableItemsForCheckout;
+    MutableLiveData<List<RegisteredUserDetails>> registeredUserDetailsMutableLiveData;
+    MutableLiveData<OrderPlacedDetail> liveDataOfOrderedPlacedDetail;
+    MutableLiveData<OrderSummaryDetails> liveDataOfOrderSummary;
     ApiInterface apiInterface;
     ListCategories listCategories;
     List<CategoriesData> listCategoriesDataList;
+    OrderPlacedDetail orderPlacedDetail;
 
     //Collectables
     public MutableLiveData<List<CategoriesData>> getCollectablesLiveData() {
 
         liveDataCollectables = new MutableLiveData<>();
 
-        apiInterface = ApiClient.getCollectables().create(ApiInterface.class);
+        apiInterface = ApiClient.baseUrl().create(ApiInterface.class);
 
         apiInterface.getListCategories().enqueue(new Callback<ListCategories>() {
             @Override
             public void onResponse(Call<ListCategories> call, Response<ListCategories> response) {
                 if (response.isSuccessful()) {
-
                     listCategories = response.body();
                     listCategoriesDataList = listCategories.getDataList();
                     liveDataCollectables.postValue(listCategoriesDataList);
+                } else {
+                    liveDataCollectables.postValue(null);
                 }
             }
             @Override
             public void onFailure(Call<ListCategories> call, Throwable t) {
-
+                liveDataCollectables.postValue(null);
             }
         });
         return liveDataCollectables;
@@ -78,11 +93,13 @@ public class Repository {
                             liveDataCollectableItems.postValue(collectablesItemsData);
                         }
                     }
+                } else {
+                    liveDataCollectableItems.postValue(null);
                 }
             }
             @Override
             public void onFailure(Call<CollectablesItems> call, Throwable t) {
-
+                liveDataCollectableItems.postValue(null);
                 Log.d("Unable to fetch the data", "in collectables items repositories");
             }
         });
@@ -103,11 +120,13 @@ public class Repository {
                     if (collectablesItems != null) {
                         liveDataCategoryCollectableItems.postValue(collectablesItems);
                     }
+                } else {
+                    liveDataCategoryCollectableItems.postValue(null);
                 }
             }
             @Override
             public void onFailure(Call<CollectablesItems> call, Throwable t) {
-                Log.d("Data--------------->", "unable to fetch");
+                liveDataCategoryCollectableItems.postValue(null);
             }
         });
         return liveDataCategoryCollectableItems;
@@ -126,6 +145,8 @@ public class Repository {
                     if (collectablesItems != null) {
                         liveDataCategoryCollectableItems.postValue(collectablesItems);
                     }
+                } else {
+                    liveDataCategoryCollectableItems.postValue(null);
                 }
             }
 
@@ -145,13 +166,19 @@ public class Repository {
             @Override
             public void onResponse(Call<SubCategoryDropdownList> call, Response<SubCategoryDropdownList> response) {
                 if (response.isSuccessful()) {
-                    liveDataSubCategoryDropdownList.postValue(response.body().getSubCategoryDropdownListDataList());
+                    if (response.body().getSubCategoryDropdownListDataList() != null) {
+                        liveDataSubCategoryDropdownList.postValue(response.body().getSubCategoryDropdownListDataList());
+                    } else {
+                        liveDataSubCategoryDropdownList.postValue(null);
+                    }
+                } else {
+                    liveDataSubCategoryDropdownList.postValue(null);
                 }
             }
 
             @Override
             public void onFailure(Call<SubCategoryDropdownList> call, Throwable t) {
-
+                liveDataSubCategoryDropdownList.postValue(null);
             }
         });
         return liveDataSubCategoryDropdownList;
@@ -159,7 +186,7 @@ public class Repository {
 
     public MutableLiveData<SearchCollectableItems> getLiveDataCollectableItemsBySearch(SearchData searchData) {
         liveDataCollectableItemsBySearch = new MutableLiveData<>();
-        apiInterface = ApiClient.getCollectableItemsBySearch().create(ApiInterface.class);
+        apiInterface = ApiClient.baseUrl().create(ApiInterface.class);
         apiInterface.getCollectableItemsBySearch(searchData).enqueue(new Callback<SearchCollectableItems>() {
             @Override
             public void onResponse(Call<SearchCollectableItems> call, Response<SearchCollectableItems> response) {
@@ -195,4 +222,130 @@ public class Repository {
         });
         return liveDataCollectablesRelatedItems;
     }
+
+    public MutableLiveData<List<CountryList>> getCountryList() {
+
+        liveDataCountryList = new MutableLiveData<>();
+        apiInterface = ApiClient.baseUrl().create(ApiInterface.class);
+        apiInterface.getCountryList().enqueue(new Callback<Country>() {
+            @Override
+            public void onResponse(Call<Country> call, Response<Country> response) {
+                if (response.isSuccessful()) {
+                    liveDataCountryList.postValue((List<CountryList>) response.body().getData());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Country> call, Throwable t) {
+
+            }
+        });
+        return liveDataCountryList;
+    }
+
+    public MutableLiveData<CollectableItemsForCheckout> getLiveDataCollectableCartItemsForCheckout(CartItems cartItems) {
+
+        liveDataCollectableItemsForCheckout = new MutableLiveData<>();
+
+        apiInterface = ApiClient.baseUrl().create(ApiInterface.class);
+        apiInterface.getCollectableCartItemsForCheckout(cartItems).enqueue(new Callback<CollectableItemsForCheckout>() {
+            @Override
+            public void onResponse(Call<CollectableItemsForCheckout> call, Response<CollectableItemsForCheckout> response) {
+                if (response.isSuccessful()) {
+                    liveDataCollectableItemsForCheckout.postValue(response.body());
+                } else {
+                    liveDataCollectableItemsForCheckout.postValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CollectableItemsForCheckout> call, Throwable t) {
+
+            }
+        });
+        return liveDataCollectableItemsForCheckout;
+    }
+
+    public MutableLiveData<List<RegisteredUserDetails>> getRegisteredUserDetailsLiveData(String email) {
+        registeredUserDetailsMutableLiveData = new MutableLiveData<>();
+        apiInterface = ApiClient.getRegisteredUSerDetail().create(ApiInterface.class);
+        apiInterface.getRegisteredUserDetails(email).enqueue(new Callback<RegisteredUser>() {
+            @Override
+            public void onResponse(Call<RegisteredUser> call, Response<RegisteredUser> response) {
+                if (response.isSuccessful()) {
+                    registeredUserDetailsMutableLiveData.postValue(response.body().getData());
+                } else {
+                    registeredUserDetailsMutableLiveData.postValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RegisteredUser> call, Throwable t) {
+
+            }
+        });
+        return registeredUserDetailsMutableLiveData;
+    }
+
+    public MutableLiveData<OrderPlacedDetail> getLiveDataOfOrderedPlacedDetail(OrderPlacing orderPlacing) {
+
+        liveDataOfOrderedPlacedDetail = new MutableLiveData<>();
+
+        apiInterface = ApiClient.baseUrl().create(ApiInterface.class);
+        apiInterface.getOrderPlacedDetail(orderPlacing).enqueue(new Callback<OrderPlacedDetail>() {
+            @Override
+            public void onResponse(Call<OrderPlacedDetail> call, Response<OrderPlacedDetail> response) {
+                if (response.isSuccessful()) {
+                    Log.d("Details----->", "response success");
+                    if (response.body() != null) {
+                        orderPlacedDetail = response.body();
+                        Log.d("Details----->", orderPlacedDetail.getOrdernumber() + " order number");
+                        liveDataOfOrderedPlacedDetail.postValue(orderPlacedDetail);
+                    } else {
+                        liveDataOfOrderedPlacedDetail.postValue(null);
+                    }
+                } else {
+                    Log.d("Details----->", "response unsuccess");
+                    liveDataOfOrderedPlacedDetail.postValue(null);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<OrderPlacedDetail> call, Throwable t) {
+
+            }
+        });
+        return liveDataOfOrderedPlacedDetail;
+    }
+
+    public MutableLiveData<OrderSummaryDetails> getLiveDataOfOrderSummary(Integer orderNumber, String email) {
+
+        liveDataOfOrderSummary = new MutableLiveData<>();
+
+        apiInterface = ApiClient.getOrderSummary().create(ApiInterface.class);
+        apiInterface.getOrderSummaryDetails(orderNumber, email).enqueue(new Callback<OrderSummaryDetails>() {
+            @Override
+            public void onResponse(Call<OrderSummaryDetails> call, Response<OrderSummaryDetails> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        liveDataOfOrderSummary.postValue(response.body());
+                    } else {
+                        liveDataOfOrderSummary.postValue(null);
+                    }
+                } else {
+                    liveDataOfOrderSummary.postValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrderSummaryDetails> call, Throwable t) {
+
+            }
+        });
+
+
+        return liveDataOfOrderSummary;
+    }
+
 }
