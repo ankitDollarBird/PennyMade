@@ -15,7 +15,6 @@ import com.example.pennymead.databinding.ActivityAboutUsBinding;
 import com.example.pennymead.model.AboutUs;
 import com.example.pennymead.model.CategoriesData;
 import com.example.pennymead.page.BaseActivity;
-import com.example.pennymead.page.home.HomePageActivity;
 import com.example.pennymead.page.home.adapter.CategoriesAdapter;
 import com.example.pennymead.viewmodel.CategoriesViewModel;
 import com.squareup.picasso.Picasso;
