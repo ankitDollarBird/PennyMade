@@ -278,6 +278,12 @@ public class HomePageActivity extends BaseActivity implements GetSystemIdOfColle
                 openContactUsPage();
             }
         });
+        homePageBinding.bottomAppBar.iconFollowUsOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                        followUsOnPage();
+            }
+        });
 
     }
 

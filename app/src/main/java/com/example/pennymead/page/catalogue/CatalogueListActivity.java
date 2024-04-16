@@ -412,6 +412,12 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
                 openContactUsPage();
             }
         });
+        catalogueListBinding.catalogueBottomAppBar.iconFollowUsOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                followUsOnPage();
+            }
+        });
 
         catalogueListBinding.collectablesScrollview.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override

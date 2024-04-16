@@ -428,6 +428,12 @@ public class CheckOutPageActivity extends BaseActivity implements GetSystemIdOfC
                 openContactUsPage();
             }
         });
+        binding.includeBottomApp.iconFollowUsOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                followUsOnPage();
+            }
+        });
 
         terms.setSpan(clickableSpan, terms.toString().indexOf("terms and condition"), terms.toString().length(), 0);
         binding.checkBoxTermsAndConditions.setText(terms);
@@ -507,7 +513,7 @@ public class CheckOutPageActivity extends BaseActivity implements GetSystemIdOfC
                 public void onChanged(CollectableItemsForCheckout collectableItemsForCheckout) {
                     if (collectableItemsForCheckout != null) {
                         if (collectableItemsForCheckout.getCollectableItemsForCart() != null) {
-                            cartItemAdapter.setCartItemList((ArrayList<CollectableItemsListData>) collectableItemsForCheckout.getCollectableItemsForCart(), CheckOutPageActivity.this);
+                            cartItemAdapter.setCartItemList((ArrayList<CollectableItemsListData>) collectableItemsForCheckout.getCollectableItemsForCart(), CheckOutPageActivity.this,true);
                             cartItemAdapter.notifyDataSetChanged();
 
                             collectableItemsAdapter.setCollectableItemsList((ArrayList<CollectableItemsListData>) collectableItemsForCheckout.getCollectableItemsListDataList(), null, null, CheckOutPageActivity.this);

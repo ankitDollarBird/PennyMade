@@ -1,5 +1,7 @@
 package com.example.pennymead.page.checkout;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -71,6 +73,25 @@ public class ContactUsActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 callCatalogueListActivity(getApplicationContext(), null, position, -1);
+            }
+        });
+        binding.linkKnaresborough.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.link_knareborough)));
+                startActivity(intent);
+            }
+        });
+        binding.bottomAppBar.tvTermsCondition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openContactUsPage();
+            }
+        });
+        binding.bottomAppBar.iconFollowUsOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                followUsOnPage();
             }
         });
     }
