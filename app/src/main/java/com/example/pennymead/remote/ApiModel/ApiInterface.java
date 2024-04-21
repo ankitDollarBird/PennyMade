@@ -2,6 +2,7 @@ package com.example.pennymead.remote.ApiModel;
 
 import com.example.pennymead.model.CollectablesItems;
 import com.example.pennymead.model.ListCategories;
+import com.example.pennymead.model.ProductDetail;
 import com.example.pennymead.model.SearchCollectableItems;
 import com.example.pennymead.model.SearchData;
 import com.example.pennymead.model.SubCategoryDropdownList;
@@ -31,5 +32,8 @@ public interface ApiInterface {
 
     @POST("search-keyword/")
     Call<SearchCollectableItems> getCollectableItemsBySearch(@Body SearchData searchData);
+
+    @GET("{sysid}/")
+    Call<ProductDetail> getCollectableRelatedItems(@Path("sysid") String sysid);
 
 }

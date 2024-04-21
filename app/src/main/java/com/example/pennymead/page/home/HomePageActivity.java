@@ -23,25 +23,23 @@ import com.example.pennymead.page.BaseActivity;
 import com.example.pennymead.page.catalogue.CustomDropDownAdapter;
 import com.example.pennymead.page.home.adapter.CategoriesAdapter;
 import com.example.pennymead.page.home.adapter.CollectableItemsAdapter;
+import com.example.pennymead.page.product_detail.GetSystemIdOfCollectableItems;
 import com.example.pennymead.viewmodel.CategoriesViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HomePageActivity extends BaseActivity {
+public class HomePageActivity extends BaseActivity implements GetSystemIdOfCollectableItems {
 
     CategoriesViewModel listCategoriesViewModel;
     CategoriesAdapter adapterListCategories;
     CollectableItemsAdapter collectableItemsAdapter;
-    CollectablesItemsData collectablesItemsData;
     int totalPages;
     String previousFilter = "newest";
     String selectedFilter = "newest";
     ActivityHomePageBinding homePageBinding;
     View view;
-    int previousPage;
-    int nextPage;
     int selectedPage = 1;
     int previousSelectedPage = 0;
     int firstPage;
@@ -61,7 +59,8 @@ public class HomePageActivity extends BaseActivity {
         listCategoriesViewModel = ViewModelProviders.of(this).get(CategoriesViewModel.class);
         adapterListCategories = new CategoriesAdapter();
         collectableItemsAdapter = new CollectableItemsAdapter();
-        collectablesItemsData = new CollectablesItemsData();
+
+
 
         //Collectables
         if (isInternetConnected(getApplicationContext())) {
@@ -74,14 +73,14 @@ public class HomePageActivity extends BaseActivity {
                     adapterListCategories.getListCategoriesList((ArrayList<CategoriesData>) listCategoriesData);
                     adapterListCategories.notifyDataSetChanged();
                     hideProgressingView();
-                    homePageBinding.collectablesScrollview.scrollTo(0, homePageBinding.tvCollectables.getTop());
                     categories = new ArrayList<>();
                     categoriesNumber = new ArrayList<>();
                     for (int j = 0; j < listCategoriesData.size(); j++) {
                         categories.add(listCategoriesData.get(j).getName());
                         categoriesNumber.add(listCategoriesData.get(j).getCategory());
                     }
-                    dataForCheckoutPageOfTermsAndCondition(categories, categoriesNumber);
+                    dataOfCategory(categories, categoriesNumber);
+                    homePageBinding.collectablesScrollview.scrollTo(0, homePageBinding.tvCollectables.getTop());
                 }
             });
         } else {
@@ -142,7 +141,7 @@ public class HomePageActivity extends BaseActivity {
                 } else if (selectedFilter.equals("Author") || selectedFilter.equals("Title")) {
                     selectedFilter = selectedFilter.toLowerCase();
                 } else {
-                    selectedFilter = selectedFilter.toLowerCase().replaceAll("//s", "");
+                    selectedFilter = selectedFilter.toLowerCase().replaceAll("-", "_");
                 }
                 if (!selectedFilter.equals(previousFilter)) {
                     selectedPage = 1;
@@ -258,6 +257,12 @@ public class HomePageActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        homePageBinding.collectablesScrollview.scrollTo(0, homePageBinding.tvCollectables.getTop());
+    }
+
     public void callViewModel(String filters, int pageNumber) {
         homePageBinding.includePagination.pageNotFound.setVisibility(View.INVISIBLE);
         if (homePageBinding.includePagination.txtEtSearchPage.getText().toString() != null) {
@@ -269,14 +274,12 @@ public class HomePageActivity extends BaseActivity {
                 showProgressingView();
                 listCategoriesViewModel.getCollectablesItemsLiveData(filters, pageNumber).observe(this, new Observer<CollectablesItemsData>() {
                     @Override
-                    public void onChanged(CollectablesItemsData collectableItemsListData) {
-                        collectableItemsAdapter.setCollectableItemsList((ArrayList<CollectableItemsListData>) collectableItemsListData.getCollectableItemsListData());
+                    public void onChanged(CollectablesItemsData collectableItemsList) {
+                        collectableItemsAdapter.setCollectableItemsList((ArrayList<CollectableItemsListData>) collectableItemsList.getCollectableItemsListData(),HomePageActivity.this::getSysId);
                         collectableItemsAdapter.notifyDataSetChanged();
                         hideProgressingView();
-                        totalPages = collectableItemsListData.getTotalPages();
-                        previousPage = collectableItemsListData.getPreviousPage();
-                        nextPage = collectableItemsListData.getNextPage();
-                        firstPage = collectableItemsListData.getFirstPage();
+                        totalPages = collectableItemsList.getTotalPages();
+                        firstPage = collectableItemsList.getFirstPage();
                         homePageBinding.includePagination.btnLast.setText(totalPages + "");
                         homePageBinding.includePagination.btnLastSecond.setText(--totalPages + "");
                         if (pageNumber == firstPage) {
@@ -384,4 +387,8 @@ public class HomePageActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void getSysId(String sysId) {
+        callProductListPage(HomePageActivity.this,sysId);
+    }
 }

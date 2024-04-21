@@ -8,6 +8,7 @@ import com.example.pennymead.model.CategoriesData;
 import com.example.pennymead.model.CollectablesItems;
 import com.example.pennymead.model.CollectablesItemsData;
 import com.example.pennymead.model.ListCategories;
+import com.example.pennymead.model.ProductDetail;
 import com.example.pennymead.model.SearchCollectableItems;
 import com.example.pennymead.model.SearchData;
 import com.example.pennymead.model.SubCategoryDropdownList;
@@ -28,10 +29,10 @@ public class Repository {
     MutableLiveData<CollectablesItems> liveDataCategoryCollectableItems;
     MutableLiveData<List<SubCategoryDropdownListData>> liveDataSubCategoryDropdownList;
     MutableLiveData<SearchCollectableItems> liveDataCollectableItemsBySearch;
+    MutableLiveData<ProductDetail> liveDataCollectablesRelatedItems;
     ApiInterface apiInterface;
     ListCategories listCategories;
     List<CategoriesData> listCategoriesDataList;
-    BaseActivity baseActivity;
 
     //Collectables
     public MutableLiveData<List<CategoriesData>> getCollectablesLiveData() {
@@ -50,7 +51,6 @@ public class Repository {
                     liveDataCollectables.postValue(listCategoriesDataList);
                 }
             }
-
             @Override
             public void onFailure(Call<ListCategories> call, Throwable t) {
 
@@ -80,7 +80,6 @@ public class Repository {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<CollectablesItems> call, Throwable t) {
 
@@ -106,7 +105,6 @@ public class Repository {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<CollectablesItems> call, Throwable t) {
                 Log.d("Data--------------->", "unable to fetch");
@@ -178,5 +176,23 @@ public class Repository {
             }
         });
         return liveDataCollectableItemsBySearch;
+    }
+    public MutableLiveData<ProductDetail> getLiveDataCollectableRelatedItems(String sysId) {
+        liveDataCollectablesRelatedItems = new MutableLiveData<>();
+        apiInterface = ApiClient.getCollectableRelatedItems().create(ApiInterface.class);
+        apiInterface.getCollectableRelatedItems(sysId).enqueue(new Callback<ProductDetail>() {
+            @Override
+            public void onResponse(Call<ProductDetail> call, Response<ProductDetail> response) {
+                if(response.isSuccessful()){
+                    liveDataCollectablesRelatedItems.postValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductDetail> call, Throwable t) {
+
+            }
+        });
+        return liveDataCollectablesRelatedItems;
     }
 }

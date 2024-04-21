@@ -22,8 +22,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.pennymead.R;
 import com.example.pennymead.databinding.ActivityBaseBinding;
+import com.example.pennymead.model.CollectableItemsListData;
 import com.example.pennymead.page.checkout.CheckOutForPrivacyPolicy;
 import com.example.pennymead.page.home.HomePageActivity;
+import com.example.pennymead.page.product_detail.ProductDetailActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -39,7 +41,6 @@ public class BaseActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     int previousItemId = R.id.nav_home;
     Intent intent;
-    Context context;
     List<String> categoriesName;
     List<String> categoriesNumber;
     Class activity;
@@ -178,15 +179,21 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void openCheckoutPageOfTermsAndCondition() {
-        Intent intent = new Intent(getApplicationContext(), CheckOutForPrivacyPolicy.class);
+         intent = new Intent(getApplicationContext(), CheckOutForPrivacyPolicy.class);
         intent.putStringArrayListExtra("Categories Name", (ArrayList<String>) categoriesName);
         intent.putStringArrayListExtra("Categories Number", (ArrayList<String>) categoriesNumber);
         startActivity(intent);
     }
 
-    public void dataForCheckoutPageOfTermsAndCondition(List<String> items, List<String> categoryNumber) {
-
-        this.categoriesName = items;
+    public void dataOfCategory(List<String> categoryName, List<String> categoryNumber) {
+        this.categoriesName = categoryName;
         this.categoriesNumber = categoryNumber;
+    }
+    public void callProductListPage(Context context, String sysId){
+        intent = new Intent(context, ProductDetailActivity.class);
+        intent.putExtra("System Id",sysId);
+        intent.putStringArrayListExtra("Categories Name", (ArrayList<String>) categoriesName);
+        intent.putStringArrayListExtra("Categories Number", (ArrayList<String>) categoriesNumber);
+        startActivity(intent);
     }
 }

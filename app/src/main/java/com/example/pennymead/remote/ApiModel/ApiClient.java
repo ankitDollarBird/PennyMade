@@ -13,6 +13,13 @@ public class ApiClient {
 
     public static void setRetrofit(String url) {
 
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        client = new OkHttpClient.Builder().addInterceptor(logging)
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .build();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .client(client)
@@ -23,12 +30,6 @@ public class ApiClient {
 
     public static Retrofit getCollectables() {
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        client = new OkHttpClient.Builder().addInterceptor(logging)
-                .connectTimeout(20, TimeUnit.SECONDS)
-                .readTimeout(20, TimeUnit.SECONDS)
-                .writeTimeout(20, TimeUnit.SECONDS).build();
 
         setRetrofit("https://stagingapi.pennymead.com//view/");
 
@@ -60,6 +61,10 @@ public class ApiClient {
 
     public static Retrofit getCollectableItemsBySearch() {
         setRetrofit("https://stagingapi.pennymead.com/view/");
+        return retrofit;
+    }
+    public static Retrofit getCollectableRelatedItems() {
+        setRetrofit("https://stagingapi.pennymead.com//view/product_detail/");
         return retrofit;
     }
 }
