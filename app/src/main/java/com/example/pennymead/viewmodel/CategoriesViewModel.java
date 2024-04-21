@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.pennymead.model.AboutUs;
 import com.example.pennymead.model.CartItems;
 import com.example.pennymead.model.CategoriesData;
 import com.example.pennymead.model.CollectableItemsForCheckout;
@@ -79,5 +80,8 @@ public class CategoriesViewModel extends ViewModel {
 
     public MutableLiveData<OrderSummaryDetails> getOrderSummary(Integer orderNumber, String email) {
         return repo.getLiveDataOfOrderSummary(orderNumber, email);
+    }
+    public MutableLiveData<AboutUs> getAboutUsContent() {
+        return repo.getLiveDataOfAboutUs();
     }
 }

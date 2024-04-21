@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -17,9 +18,12 @@
         android:theme="@style/Theme.Pennymead"
         tools:targetApi="31">
         <activity
+            android:name=".page.aboutus.AboutUsActivity"
+            android:exported="false" />
+        <activity
             android:name=".page.ordersummary.OrderSummaryActivity"
             android:exported="false" />
-        <activity android:name=".page.checkout.CheckOutPageActivity"></activity>
+        <activity android:name=".page.checkout.CheckOutPageActivity" />
         <activity android:name=".page.product_detail.ProductDetailActivity" />
         <activity android:name=".page.catalogue.CatalogueListActivity" />
         <activity android:name=".page.checkout.ContactUsActivity" />

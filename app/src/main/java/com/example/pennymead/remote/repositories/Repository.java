@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.pennymead.model.AboutUs;
 import com.example.pennymead.model.CartItems;
 import com.example.pennymead.model.CategoriesData;
 import com.example.pennymead.model.CollectableItemsForCheckout;
@@ -43,6 +44,7 @@ public class Repository {
     MutableLiveData<List<RegisteredUserDetails>> registeredUserDetailsMutableLiveData;
     MutableLiveData<OrderPlacedDetail> liveDataOfOrderedPlacedDetail;
     MutableLiveData<OrderSummaryDetails> liveDataOfOrderSummary;
+    MutableLiveData<AboutUs> liveDataOfAboutUs;
     ApiInterface apiInterface;
     ListCategories listCategories;
     List<CategoriesData> listCategoriesDataList;
@@ -272,7 +274,7 @@ public class Repository {
         apiInterface.getRegisteredUserDetails(email).enqueue(new Callback<RegisteredUser>() {
             @Override
             public void onResponse(Call<RegisteredUser> call, Response<RegisteredUser> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful() && response.body()!=null) {
                     registeredUserDetailsMutableLiveData.postValue(response.body().getData());
                 } else {
                     registeredUserDetailsMutableLiveData.postValue(null);
@@ -295,22 +297,13 @@ public class Repository {
         apiInterface.getOrderPlacedDetail(orderPlacing).enqueue(new Callback<OrderPlacedDetail>() {
             @Override
             public void onResponse(Call<OrderPlacedDetail> call, Response<OrderPlacedDetail> response) {
-                if (response.isSuccessful()) {
-                    Log.d("Details----->", "response success");
-                    if (response.body() != null) {
+                if (response.isSuccessful() && response.body() != null) {
                         orderPlacedDetail = response.body();
-                        Log.d("Details----->", orderPlacedDetail.getOrdernumber() + " order number");
                         liveDataOfOrderedPlacedDetail.postValue(orderPlacedDetail);
-                    } else {
-                        liveDataOfOrderedPlacedDetail.postValue(null);
-                    }
                 } else {
-                    Log.d("Details----->", "response unsuccess");
                     liveDataOfOrderedPlacedDetail.postValue(null);
                 }
-
             }
-
             @Override
             public void onFailure(Call<OrderPlacedDetail> call, Throwable t) {
 
@@ -327,25 +320,41 @@ public class Repository {
         apiInterface.getOrderSummaryDetails(orderNumber, email).enqueue(new Callback<OrderSummaryDetails>() {
             @Override
             public void onResponse(Call<OrderSummaryDetails> call, Response<OrderSummaryDetails> response) {
-                if (response.isSuccessful()) {
-                    if (response.body() != null) {
+                if (response.isSuccessful() && response.body() != null) {
                         liveDataOfOrderSummary.postValue(response.body());
-                    } else {
-                        liveDataOfOrderSummary.postValue(null);
-                    }
                 } else {
                     liveDataOfOrderSummary.postValue(null);
                 }
             }
-
             @Override
             public void onFailure(Call<OrderSummaryDetails> call, Throwable t) {
-
+                liveDataOfOrderSummary.postValue(null);
             }
         });
-
-
         return liveDataOfOrderSummary;
+    }
+    public MutableLiveData<AboutUs> getLiveDataOfAboutUs() {
+
+        liveDataOfAboutUs = new MutableLiveData<>();
+
+        apiInterface = ApiClient.getAboutUsData().create(ApiInterface.class);
+        apiInterface.getAboutUsContent().enqueue(new Callback<AboutUs>() {
+            @Override
+            public void onResponse(Call<AboutUs> call, Response<AboutUs> response) {
+                if(response.isSuccessful() && response.body()!=null){
+                  liveDataOfAboutUs.postValue(response.body());
+                }
+                else{
+                    liveDataOfAboutUs.postValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AboutUs> call, Throwable t) {
+                liveDataOfAboutUs.postValue(null);
+            }
+        });
+        return liveDataOfAboutUs;
     }
 
 }

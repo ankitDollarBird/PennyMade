@@ -23,6 +23,7 @@
     </string-array>
 
     <string name="add_to_cart">Add To Cart</string>
+    <string name="button_pay_now">Pay now</string>
     <string name="whole_catalogue">Whole Catalogue</string>
     <string name="this_category">This Category</string>
     <string name="search_description">Search by description</string>
@@ -112,6 +113,8 @@ payment.</string>
     <string name="text_order_detail">Your order has been placed. You will receive an e-mail shortly detailing how to pay for this order</string>
     <string name="text_please_note">Please note:</string>
     <string name="text_data_not_found">Data not found</string>
+    <string name="follow_us_on_link">https://www.facebook.com/pennymeadbooks/</string>
+    <string name="payment_link">https://live.opayo.eu.elavon.com/gateway/service/cardselection?vpstxid=15E0ED1E-E49D-A4D1-179F-151B6C2BA111</string>
     <string name="text_payment_invoice">Most e-mail systems nowadays use junk mail filters to filter out the huge amounts of unsolicited email being sent every day. In some cases, these filters may mark a legitimate email as junk. If you have not received your invoice e-mail within 24 hours, please check your junk mail folder to make sure it hasn\'t been put there. If you\'ve registered with the site you can also pay your invoice from your \'Track Order\' page.</string>
 
 

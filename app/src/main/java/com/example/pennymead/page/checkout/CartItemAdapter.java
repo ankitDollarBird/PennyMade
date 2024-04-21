@@ -20,11 +20,12 @@ import java.util.ArrayList;
 public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHolder> {
     ArrayList<CollectableItemsListData> collectableItemsListData;
     GetSystemIdOfCollectableItems getSystemIdOfCollectableItems;
+    boolean isButtonVisible;
 
     @NonNull
     @Override
     public CartItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.checkout_cart_items, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_items, parent, false));
     }
 
     @Override
@@ -38,6 +39,13 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
         } else {
             holder.imageViewForCart.setImageResource(R.drawable.not_found_img);
         }
+        if(isButtonVisible){
+            holder.btnDelete.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.btnDelete.setVisibility(View.GONE);
+        }
+
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,9 +56,10 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
 
     }
 
-    public void setCartItemList(ArrayList<CollectableItemsListData> collectableItemsListData, GetSystemIdOfCollectableItems getSystemIdOfCollectableItems) {
+    public void setCartItemList(ArrayList<CollectableItemsListData> collectableItemsListData, GetSystemIdOfCollectableItems getSystemIdOfCollectableItems,boolean isButtonVisible) {
         this.collectableItemsListData = collectableItemsListData;
         this.getSystemIdOfCollectableItems = getSystemIdOfCollectableItems;
+        this.isButtonVisible = isButtonVisible;
     }
 
     @Override

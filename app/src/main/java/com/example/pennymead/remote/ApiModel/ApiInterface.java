@@ -1,5 +1,6 @@
 package com.example.pennymead.remote.ApiModel;
 
+import com.example.pennymead.model.AboutUs;
 import com.example.pennymead.model.CartItems;
 import com.example.pennymead.model.CollectableItemsForCheckout;
 import com.example.pennymead.model.CollectablesItems;
@@ -57,5 +58,7 @@ public interface ApiInterface {
 
     @GET("{orderNumber}/{email}/")
     Call<OrderSummaryDetails> getOrderSummaryDetails(@Path("orderNumber") Integer orderNumber, @Path("email") String email);
+    @GET("getaboutpage_content/")
+    Call<AboutUs> getAboutUsContent();
 
 }

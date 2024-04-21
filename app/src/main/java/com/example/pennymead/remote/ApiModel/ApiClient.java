@@ -68,5 +68,9 @@ public class ApiClient {
         setRetrofit("https://stagingapi.pennymead.com/view/orderSummary/");
         return retrofit;
     }
+ public static Retrofit getAboutUsData() {
+        setRetrofit("https://stagingapi.pennymead.com/cms/");
+        return retrofit;
+    }
 
 }

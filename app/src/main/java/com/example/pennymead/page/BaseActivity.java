@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.pennymead.R;
 import com.example.pennymead.databinding.ActivityBaseBinding;
+import com.example.pennymead.page.aboutus.AboutUsActivity;
 import com.example.pennymead.page.catalogue.CatalogueListActivity;
 import com.example.pennymead.page.checkout.CheckOutPageActivity;
 import com.example.pennymead.page.checkout.ContactUsActivity;
@@ -93,6 +95,12 @@ public class BaseActivity extends AppCompatActivity {
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }
         });
+        drawerLayout.findViewById(R.id.nav_drawer_view).findViewById(R.id.nav_bottom).findViewById(R.id.icon_follow_us_on).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                followUsOnPage();
+            }
+        });
     }
 
     @Override
@@ -101,6 +109,7 @@ public class BaseActivity extends AppCompatActivity {
         binding = ActivityBaseBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         this.getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.black));
+
     }
 
     @Override
@@ -151,6 +160,7 @@ public class BaseActivity extends AppCompatActivity {
                     startActivity(new Intent(context, HomePageActivity.class));
                     previousItemId = itemId;
                 } else if (itemId == R.id.nav_about_us) {
+                    startActivity(new Intent(context, AboutUsActivity.class));
                     drawer.closeDrawer(GravityCompat.END);
                 } else if (itemId == R.id.nav_track_order) {
                     drawer.closeDrawer(GravityCompat.END);
@@ -309,5 +319,9 @@ public class BaseActivity extends AppCompatActivity {
             sysIdList = list;
         }
         return list;
+    }
+    public void followUsOnPage(){
+        intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.follow_us_on_link)));
+        startActivity(intent);
     }
 }

@@ -183,7 +183,12 @@ public class ProductDetailActivity extends BaseActivity implements GetSystemIdOf
                 return false;
             }
         });
-
+       binding.includeBottomApp.iconFollowUsOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                followUsOnPage();
+            }
+        });
 
         binding.rvProductCollectableItems.setHasFixedSize(true);
         binding.rvProductCollectableItems.setLayoutManager(new LinearLayoutManager(this));
