@@ -14,6 +14,10 @@ public class CollectablesItems {
     @SerializedName("categorydescription")
     List<CategoryDescription> categoryDescription;
 
+    public int getStatus() {
+        return status;
+    }
+
     public CollectablesItemsData getCollectablesItemsData() {
         return collectablesItemsData;
     }

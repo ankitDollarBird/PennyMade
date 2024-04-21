@@ -1,8 +1,15 @@
 package com.example.pennymead.remote.ApiModel;
 
+import com.example.pennymead.model.CartItems;
+import com.example.pennymead.model.CollectableItemsForCheckout;
 import com.example.pennymead.model.CollectablesItems;
+import com.example.pennymead.model.Country;
 import com.example.pennymead.model.ListCategories;
+import com.example.pennymead.model.OrderPlacedDetail;
+import com.example.pennymead.model.OrderPlacing;
+import com.example.pennymead.model.OrderSummaryDetails;
 import com.example.pennymead.model.ProductDetail;
+import com.example.pennymead.model.RegisteredUser;
 import com.example.pennymead.model.SearchCollectableItems;
 import com.example.pennymead.model.SearchData;
 import com.example.pennymead.model.SubCategoryDropdownList;
@@ -35,5 +42,20 @@ public interface ApiInterface {
 
     @GET("{sysid}/")
     Call<ProductDetail> getCollectableRelatedItems(@Path("sysid") String sysid);
+
+    @GET("countries/")
+    Call<Country> getCountryList();
+
+    @POST("viewbasket/")
+    Call<CollectableItemsForCheckout> getCollectableCartItemsForCheckout(@Body CartItems cartItems);
+
+    @GET("{email}/")
+    Call<RegisteredUser> getRegisteredUserDetails(@Path("email") String email);
+
+    @POST("orderplacing/")
+    Call<OrderPlacedDetail> getOrderPlacedDetail(@Body OrderPlacing orderPlacing);
+
+    @GET("{orderNumber}/{email}/")
+    Call<OrderSummaryDetails> getOrderSummaryDetails(@Path("orderNumber") Integer orderNumber, @Path("email") String email);
 
 }

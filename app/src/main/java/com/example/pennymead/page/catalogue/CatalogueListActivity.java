@@ -1,18 +1,16 @@
 package com.example.pennymead.page.catalogue;
 
-import android.content.Context;
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.RadioGroup;
 
-import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -48,7 +46,6 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
     String previousFilter = "newest";
     int totalPages;
     int previousPage;
-    int nextPage;
     int selectedPage = 1;
     int previousSelectedPage = 0;
     int previousDropdownSelectedPage = 0;
@@ -69,6 +66,7 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
     int isFilterClicked;
     int isCatClickedChangeIcon;
     SearchData searchData;
+    CollectablesItems collectablesItemsListTemp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +78,7 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
         collectableItemsAdapter = new CollectableItemsAdapter();
         categoriesNumber = getIntent().getStringArrayListExtra("Categories Number");
         subCategoryAdapter = new SubCategoryAdapter();
+
         selectedSubCategory = Integer.parseInt(categoriesNumber.get(getIntent().getIntExtra("Category Position", 0)));
 
         setSubCategoryItems();
@@ -92,7 +91,7 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
             reference = getIntent().getIntExtra("Reference",0);
             callViewModelForSubCategoryDropdownListData();
         } else if (searchData!=null) {
-                    callVMForCollectableItemsSearchData(searchData);
+            callVMForCollectableItemsSearchData(searchData);
         } else {
             callViewModelForCollectableItems();
         }
@@ -146,6 +145,7 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
         catalogueListBinding.includeCatalogueFilter.atvFilters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedPage = 1;
                 adapterForFilters.setSelectedPosition(position);
                 Log.d("previous filter value is", previousFilter);
                 catalogueListBinding.includeCatalogueFilter.textLayoutForFilters.setEndIconDrawable(getResources().getDrawable(R.drawable.icon_spinner_down_arrow));
@@ -157,12 +157,13 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
                 } else if (selectedFilter.equals("Author") || selectedFilter.equals("Title")) {
                     selectedFilter = selectedFilter.toLowerCase();
                 } else {
-                    selectedFilter = selectedFilter.toLowerCase().replaceAll("//s", "");
+                    selectedFilter = selectedFilter.toLowerCase().replaceAll("-", "_");
                 }
                 if (!selectedFilter.equals(previousFilter)) {
                     if (isSubCatClicked) {
                         previousSelectedPage = 0;
                         callViewModelForCollectableItems();
+
                     } else if (isMenuClicked) {
                         previousDropdownSelectedPage = 0;
                         callViewModelForSubCategoryDropdownListData();
@@ -282,13 +283,15 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
                         }
                     } else if (isSearching) {
                         selectedPage = Integer.parseInt(catalogueListBinding.cataloguePagination.txtEtSearchPage.getText().toString());
-                        if (selectedPage <= totalPages && selectedPage >= selectedPage) {
+                        if (selectedPage <= totalPages && selectedPage >= firstPage) {
                             searchCollectableItems();
+
                         } else {
-                            catalogueListBinding.cataloguePagination.pageNotFound.setText("Page number should be in allowed range");
+                            catalogueListBinding.cataloguePagination.pageNotFound.setText(getResources().getString(R.string.allowed_range));
                             catalogueListBinding.cataloguePagination.pageNotFound.setVisibility(View.VISIBLE);
                         }
                     }
+                    hideKeyboard(CatalogueListActivity.this);
                 } else {
                     catalogueListBinding.cataloguePagination.pageNotFound.setText("Please enter the page number");
                     catalogueListBinding.cataloguePagination.pageNotFound.setVisibility(View.VISIBLE);
@@ -395,10 +398,7 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
                     previousSelectedSearchedPage = 0;
                     previousSelectedPage = 0;
                     searchCollectableItems();
-                    if (getCurrentFocus() != null && getCurrentFocus() instanceof EditText) {
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(catalogueListBinding.includeSubCatSearchCollectables.etSearch.getWindowToken(), 0);
-                    }
+                    hideKeyboard(CatalogueListActivity.this);
                 }
 
 
@@ -409,7 +409,30 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
         catalogueListBinding.catalogueBottomAppBar.tvTermsCondition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openCheckoutPageOfTermsAndCondition();
+                openContactUsPage();
+            }
+        });
+
+        catalogueListBinding.collectablesScrollview.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                hideKeyboard(CatalogueListActivity.this);
+                catalogueListBinding.includeSubCatSearchCollectables.dmSubCategories.textInputLayoutForCategory.setEndIconDrawable(getResources().getDrawable(R.drawable.icon_spinner_down_arrow));
+                catalogueListBinding.includeCatalogueFilter.textLayoutForFilters.setEndIconDrawable(getResources().getDrawable(R.drawable.icon_spinner_down_arrow));
+                isCatClickedChangeIcon = 0;
+                isFilterClicked = 0;
+            }
+        });
+        catalogueListBinding.layoutCatalogueListPage.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideKeyboard(CatalogueListActivity.this);
+                catalogueListBinding.includeSubCatSearchCollectables.dmSubCategories.textInputLayoutForCategory.setEndIconDrawable(getResources().getDrawable(R.drawable.icon_spinner_down_arrow));
+                catalogueListBinding.includeCatalogueFilter.textLayoutForFilters.setEndIconDrawable(getResources().getDrawable(R.drawable.icon_spinner_down_arrow));
+                hideDataNotFoundView();
+                isCatClickedChangeIcon = 0;
+                isFilterClicked = 0;
+                return true;
             }
         });
 
@@ -425,8 +448,22 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
         catalogueListBinding.includeSubCatSearchCollectables.rvExposedMenu.setLayoutManager(linearLayoutManager);
         catalogueListBinding.includeSubCatSearchCollectables.rvExposedMenu.setAdapter(subCategoryAdapter);
 
-
     }
+
+    public static void hideKeyboard(CatalogueListActivity activity) {
+
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager.isAcceptingText() && activity.getCurrentFocus() != null) {
+            inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideKeyboard(CatalogueListActivity.this);
+    }
+
     private void btnFirstAlignment() {
         catalogueListBinding.cataloguePagination.btnFirst.setBackground(getResources().getDrawable(R.drawable.button_shape));
         catalogueListBinding.cataloguePagination.btnFirst.setTextColor(getResources().getColor(R.color.text_white_color));
@@ -479,17 +516,17 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
         adapterForSubCategory = new CustomDropDownAdapter(this, android.R.layout.simple_spinner_dropdown_item, categoriesName);
         catalogueListBinding.includeSubCatSearchCollectables.dmSubCategories.tvForCategoriesMenu.setAdapter(adapterForSubCategory);
         catalogueListBinding.includeSubCatSearchCollectables.dmSubCategories.tvForCategoriesMenu.setText(categoriesName.get(getIntent().getIntExtra("Category Position", 0)), false);
-        catalogueListBinding.includeSubCatSearchCollectables.dmSubCategories.tvForCategoriesMenu.setDropDownBackgroundDrawable(getResources().getDrawable(R.drawable.filters_items_background));
+        catalogueListBinding.includeSubCatSearchCollectables.dmSubCategories.tvForCategoriesMenu.setDropDownBackgroundDrawable(getResources().getDrawable(R.drawable.dropdown_menu_items_background));
         adapterForSubCategory.setSelectedPosition(getIntent().getIntExtra("Category Position", 0));
     }
 
     private void setFilterMenuItems() {
-        String[] items = getResources().getStringArray(R.array.collectables_items);
+        String[] items = getResources().getStringArray(R.array.filters_of_collectable_items);
         adapterForFilters = new CustomDropDownAdapter(this, android.R.layout.simple_spinner_dropdown_item, Arrays.asList(items));
         catalogueListBinding.includeCatalogueFilter.atvFilters.setAdapter(adapterForFilters);
         adapterForFilters.setSelectedPosition(0);
         catalogueListBinding.includeCatalogueFilter.atvFilters.setText(items[0], false);
-        catalogueListBinding.includeCatalogueFilter.atvFilters.setDropDownBackgroundDrawable(getResources().getDrawable(R.drawable.filters_items_background));
+        catalogueListBinding.includeCatalogueFilter.atvFilters.setDropDownBackgroundDrawable(getResources().getDrawable(R.drawable.dropdown_menu_items_background));
 
     }
 
@@ -510,7 +547,7 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
                     catalogueListBinding.includeSubCatSearchCollectables.searchDescription.setChecked(true);
                 }
                 if(searchData.getCategory_number()==0){
-                    catalogueListBinding.includeSubCatSearchCollectables.wholeCatalogueRd.setChecked(true);
+                    catalogueListBinding.includeSubCatSearchCollectables.wholeCatalogueRd.setChecked(false);
                 }
                 else{
                     catalogueListBinding.includeSubCatSearchCollectables.thisCategoryRd.setChecked(true);
@@ -519,13 +556,11 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
                     @Override
                     public void onChanged(SearchCollectableItems searchCollectableItems) {
                         if (searchCollectableItems != null) {
-                            collectableItemsAdapter.setCollectableItemsList((ArrayList<CollectableItemsListData>) searchCollectableItems.getSearchList(), CatalogueListActivity.this::getSysId);
+                            collectableItemsAdapter.setCollectableItemsList((ArrayList<CollectableItemsListData>) searchCollectableItems.getSearchList(), categoriesName, categoriesNumber, CatalogueListActivity.this);
                             collectableItemsAdapter.notifyDataSetChanged();
                             totalPages = searchCollectableItems.getTotalPages();
-                            Log.d("total------>", totalPages + " in Search");
                             firstPage = searchCollectableItems.getFirstPage();
                             previousPage = searchCollectableItems.getPreviousPage();
-                            nextPage = searchCollectableItems.getNextPage();
                             isDropdownPagesEqual();
                             catalogueListBinding.cataloguePagination.getRoot().setVisibility(View.VISIBLE);
                             catalogueListBinding.rvCatalogueCollectablesItems.setVisibility(View.VISIBLE);
@@ -564,20 +599,33 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
                 categoriesViewModel.getCategoryCollectablesItemsLivedata(selectedSubCategory, selectedFilter, selectedPage).observe(this, new Observer<CollectablesItems>() {
                     @Override
                     public void onChanged(CollectablesItems collectablesItemsList) {
-                        collectableItemsAdapter.setCollectableItemsList((ArrayList<CollectableItemsListData>) collectablesItemsList.getCollectablesItemsData().getCollectableItemsListData(),CatalogueListActivity.this::getSysId);
-                        collectableItemsAdapter.notifyDataSetChanged();
-                        catalogueListBinding.tvCategoryDescription.setText(Html.fromHtml(collectablesItemsList.getCategoryDescription().get(0).getCategoryDescription(), 0));
-                        hideProgressingView();
-                        totalPages = collectablesItemsList.getCollectablesItemsData().getTotalPages();
-                        Log.d("total------>", totalPages + " in Collectables");
-                        previousPage = collectablesItemsList.getCollectablesItemsData().getPreviousPage();
-                        nextPage = collectablesItemsList.getCollectablesItemsData().getNextPage();
-                        firstPage = collectablesItemsList.getCollectablesItemsData().getFirstPage();
-                        catalogueListBinding.cataloguePagination.btnLast.setText(String.valueOf(totalPages));
-                        catalogueListBinding.cataloguePagination.btnLastSecond.setText(String.valueOf(previousPage));
-
-                        scrollFromPaginationToTop();
-                        isDropdownPagesEqual();
+                        collectablesItemsListTemp = collectablesItemsList;
+                        if (collectablesItemsList != null) {
+                            if (collectablesItemsList.getCollectablesItemsData().getCollectableItemsListData() != null && collectablesItemsList.getCollectablesItemsData().getCollectableItemsListData().size() != 0 && collectablesItemsList.getStatus() != 404 && collectablesItemsList != null) {
+                                collectableItemsAdapter.setCollectableItemsList((ArrayList<CollectableItemsListData>) collectablesItemsList.getCollectablesItemsData().getCollectableItemsListData(), categoriesName, categoriesNumber, CatalogueListActivity.this);
+                                collectableItemsAdapter.notifyDataSetChanged();
+                                catalogueListBinding.tvCategoryDescription.setText(Html.fromHtml(collectablesItemsList.getCategoryDescription().get(0).getCategoryDescription(), 0));
+                                hideProgressingView();
+                                totalPages = collectablesItemsList.getCollectablesItemsData().getTotalPages();
+                                previousPage = collectablesItemsList.getCollectablesItemsData().getPreviousPage();
+                                firstPage = collectablesItemsList.getCollectablesItemsData().getFirstPage();
+                                catalogueListBinding.cataloguePagination.btnLast.setText(String.valueOf(totalPages));
+                                catalogueListBinding.cataloguePagination.btnLastSecond.setText(String.valueOf(previousPage));
+                                catalogueListBinding.rvCatalogueCollectablesItems.setVisibility(View.VISIBLE);
+                                catalogueListBinding.includeCatalogueFilter.getRoot().setVisibility(View.VISIBLE);
+                                catalogueListBinding.cataloguePagination.getRoot().setVisibility(View.VISIBLE);
+                                catalogueListBinding.tvForDataNotFound.setVisibility(View.GONE);
+                                scrollFromPaginationToTop();
+                                isDropdownPagesEqual();
+                            }
+                        } else {
+                            catalogueListBinding.rvCatalogueCollectablesItems.setVisibility(View.GONE);
+                            catalogueListBinding.tvForDataNotFound.setVisibility(View.VISIBLE);
+                            catalogueListBinding.includeCatalogueFilter.getRoot().setVisibility(View.GONE);
+                            catalogueListBinding.cataloguePagination.getRoot().setVisibility(View.GONE);
+                            hideProgressingView();
+                            onDataNotFound(getApplicationContext());
+                        }
                     }
                 });
             }
@@ -589,12 +637,13 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
 
     public void callViewModelForSubCategoryDropdownList(int selectedSubCat) {
         if (isInternetConnected(getApplicationContext())) {
-
             categoriesViewModel.getSubCategoryLiveDropdownList(selectedSubCat).observe(this, new Observer<List<SubCategoryDropdownListData>>() {
                 @Override
                 public void onChanged(List<SubCategoryDropdownListData> subCategoryDropdownListData) {
-                    subCategoryAdapter.setSubCategoriesList(subCategoryDropdownListData, getApplicationContext(), CatalogueListActivity.this);
-                    subCategoryAdapter.notifyDataSetChanged();
+                    if (subCategoryDropdownListData != null && subCategoryDropdownListData.size() != 0) {
+                        subCategoryAdapter.setSubCategoriesList(subCategoryDropdownListData, getApplicationContext(), CatalogueListActivity.this);
+                        subCategoryAdapter.notifyDataSetChanged();
+                    }
                 }
             });
         } else {
@@ -613,15 +662,15 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
                 categoriesViewModel.getSubCategoryDropdownListData(selectedSubCategory, reference, selectedFilter, selectedDropdownPage).observe(this, new Observer<CollectablesItems>() {
                     @Override
                     public void onChanged(CollectablesItems collectablesItems) {
-                        collectableItemsAdapter.setCollectableItemsList((ArrayList<CollectableItemsListData>) collectablesItems.getCollectablesItemsData().getCollectableItemsListData(),CatalogueListActivity.this::getSysId);
-                        collectableItemsAdapter.notifyDataSetChanged();
-                        totalPages = collectablesItems.getCollectablesItemsData().getTotalPages();
-                        previousPage = collectablesItems.getCollectablesItemsData().getPreviousPage();
-                        nextPage = collectablesItems.getCollectablesItemsData().getNextPage();
-                        firstPage = collectablesItems.getCollectablesItemsData().getFirstPage();
-
-                        isDropdownPagesEqual();
-                        hideProgressingView();
+                        if (collectablesItems != null) {
+                            collectableItemsAdapter.setCollectableItemsList((ArrayList<CollectableItemsListData>) collectablesItems.getCollectablesItemsData().getCollectableItemsListData(), categoriesName, categoriesNumber, CatalogueListActivity.this);
+                            collectableItemsAdapter.notifyDataSetChanged();
+                            totalPages = collectablesItems.getCollectablesItemsData().getTotalPages();
+                            previousPage = collectablesItems.getCollectablesItemsData().getPreviousPage();
+                            firstPage = collectablesItems.getCollectablesItemsData().getFirstPage();
+                            isDropdownPagesEqual();
+                            hideProgressingView();
+                        }
                     }
                 });
                 previousDropdownSelectedPage = selectedDropdownPage;
@@ -639,8 +688,6 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
             isMidClickable = true;
             checkPage();
         } else {
-            selectedPage = selectedDropdownPage;
-            previousSelectedPage = previousDropdownSelectedPage;
             isMidClickable = false;
             isPagesEqual();
         }
@@ -777,10 +824,6 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
             previousReference = reference;
         }
     }
-    public void setReference(int reference){
-        getReference(reference);
-    }
-
     public void scrollFromPaginationToTop() {
         catalogueListBinding.collectablesScrollview.post(new Runnable() {
             @Override
@@ -814,7 +857,7 @@ public class CatalogueListActivity extends BaseActivity implements ReferenceId, 
 
 
     @Override
-    public void getSysId(String sysId) {
-            callProductListPage(CatalogueListActivity.this,sysId);
+    public void getSysId(String sysId, int saveDelete) {
+        storeCartItems(sysId, saveDelete);
     }
 }

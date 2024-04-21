@@ -17,18 +17,13 @@
         android:theme="@style/Theme.Pennymead"
         tools:targetApi="31">
         <activity
-            android:name=".page.product_detail.ProductDetailActivity"
+            android:name=".page.ordersummary.OrderSummaryActivity"
             android:exported="false" />
-        <activity
-            android:name=".page.catalogue.CatalogueListActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".page.checkout.CheckOutForPrivacyPolicy"
-            android:exported="false" />
-        <activity
-            android:name=".page.BaseActivity"
-            android:exported="false" />
+        <activity android:name=".page.checkout.CheckOutPageActivity"></activity>
+        <activity android:name=".page.product_detail.ProductDetailActivity" />
+        <activity android:name=".page.catalogue.CatalogueListActivity" />
+        <activity android:name=".page.checkout.ContactUsActivity" />
+        <activity android:name=".page.BaseActivity" />
         <activity
             android:name=".page.home.HomePageActivity"
             android:exported="true">

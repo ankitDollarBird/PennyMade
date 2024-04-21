@@ -4,12 +4,12 @@ package com.example.pennymead.page.product_detail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import androidx.lifecycle.Observer;
@@ -23,12 +23,13 @@ import com.example.pennymead.model.ProductDetail;
 import com.example.pennymead.model.SearchData;
 import com.example.pennymead.model.SubCategoryDropdownListData;
 import com.example.pennymead.page.BaseActivity;
-import com.example.pennymead.page.catalogue.CatalogueListActivity;
 import com.example.pennymead.page.catalogue.CustomDropDownAdapter;
 import com.example.pennymead.page.catalogue.ReferenceId;
 import com.example.pennymead.page.catalogue.SubCategoryAdapter;
+import com.example.pennymead.page.checkout.CheckOutPageActivity;
 import com.example.pennymead.page.home.adapter.CollectableItemsAdapter;
 import com.example.pennymead.viewmodel.CategoriesViewModel;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -49,7 +50,6 @@ public class ProductDetailActivity extends BaseActivity implements GetSystemIdOf
     CategoriesViewModel viewModel;
     CollectableItemsAdapter collectableItemsAdapter;
     SubCategoryAdapter subCategoryAdapter;
-    int reference =-1;
     int categoryState=0;
     SearchData searchData;
 
@@ -67,6 +67,7 @@ public class ProductDetailActivity extends BaseActivity implements GetSystemIdOf
 
         getLiveProductDetail();
         dataOfCategory(categoriesName, categoriesNumber);
+
 
         binding.btnGreaterThan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,14 +98,37 @@ public class ProductDetailActivity extends BaseActivity implements GetSystemIdOf
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 binding.includeSubCatSearchCollectables.dmSubCategories.textInputLayoutForCategory.setEndIconDrawable(getResources().getDrawable(R.drawable.icon_spinner_down_arrow));
-                callCatalogueList(position);
+                callCatalogueListActivity(getApplicationContext(), null, position, -1);
 
             }
         });
         binding.buttonViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callCatalogueList(subCategoryPosition);
+                callCatalogueListActivity(getApplicationContext(), null, subCategoryPosition, -1);
+
+            }
+        });
+        binding.buttonAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar snackbar = Snackbar.make(v, "", Snackbar.LENGTH_SHORT);
+                Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbar.getView();
+                View layout = LayoutInflater.from(v.getContext()).inflate(R.layout.custom_toast_layout, null);
+                snackbarLayout.setBackground(null);
+                snackbarLayout.setPadding(16, 0, 16, 100);
+                layout.findViewById(R.id.click_to_view).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext().getApplicationContext(), CheckOutPageActivity.class);
+                        intent.putStringArrayListExtra("Categories Name", (ArrayList<String>) categoriesName);
+                        intent.putStringArrayListExtra("Categories Number", (ArrayList<String>) categoriesNumber);
+                        v.getContext().startActivity(intent);
+                    }
+                });
+                snackbarLayout.addView(layout, 0);
+                snackbar.show();
+                storeCartItems(getIntent().getStringExtra("System Id"), 0);
             }
         });
 
@@ -118,19 +142,15 @@ public class ProductDetailActivity extends BaseActivity implements GetSystemIdOf
                 } else {
                     searchDesc = 0;
                     binding.includeSubCatSearchCollectables.searchDescription.setButtonDrawable(getResources().getDrawable(R.drawable.checked_false));
-
                 }
             }
         });
       binding.includeSubCatSearchCollectables.categoryState.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-
                 if (binding.includeSubCatSearchCollectables.wholeCatalogueRd.isChecked()) {
                     categoryState = 0;
                 } else {
-                    categoryState = Integer.parseInt(collectableItemsListData.getCategory());
+                    categoryState = 1;
                 }
             }
         });
@@ -138,19 +158,29 @@ public class ProductDetailActivity extends BaseActivity implements GetSystemIdOf
             @Override
             public void onClick(View v) {
                 term = binding.includeSubCatSearchCollectables.etSearch.getText().toString();
-                if (getCurrentFocus() != null && getCurrentFocus() instanceof EditText) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(binding.includeSubCatSearchCollectables.etSearch.getWindowToken(), 0);
-                }
-                 searchData = new SearchData(term,searchDesc,categoryState,"new",1);
-                callCatalogueList(subCategoryPosition);
+                hideSoftKeyboard();
+                searchData = new SearchData(term, searchDesc, categoryState, "new", 1);
+                callCatalogueListActivity(getApplicationContext(), new Gson().toJson(searchData), subCategoryPosition, -1);
                 binding.includeSubCatSearchCollectables.etSearch.getText().clear();
             }
         });
         binding.includeBottomApp.tvTermsCondition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openCheckoutPageOfTermsAndCondition();
+                openContactUsPage();
+            }
+        });
+        binding.collectablesScrollview.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                hideSoftKeyboard();
+            }
+        });
+        binding.layoutProductDetail.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideSoftKeyboard();
+                return false;
             }
         });
 
@@ -165,16 +195,13 @@ public class ProductDetailActivity extends BaseActivity implements GetSystemIdOf
         binding.includeSubCatSearchCollectables.rvExposedMenu.setAdapter(subCategoryAdapter);
     }
 
-    private void callCatalogueList(int s) {
-        Intent intent = new Intent(this, CatalogueListActivity.class);
-        intent.putExtra("Search Term",new Gson().toJson(searchData));
-        intent.putExtra("Reference",reference);
-        intent.putExtra("Category Position", s);
-        intent.putStringArrayListExtra("Categories Number", categoriesNumber);
-        intent.putStringArrayListExtra("Categories Name", categoriesName);
-        startActivity(intent);
-        finish();
+    private void hideSoftKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(binding.includeSubCatSearchCollectables.etSearch.getApplicationWindowToken(), 0);
+        binding.includeSubCatSearchCollectables.dmSubCategories.textInputLayoutForCategory.setEndIconDrawable(getResources().getDrawable(R.drawable.icon_spinner_down_arrow));
+        isCatClickedChangeIcon = 0;
     }
+
 
     private void getLiveProductDetail() {
         showProgressingView();
@@ -185,7 +212,7 @@ public class ProductDetailActivity extends BaseActivity implements GetSystemIdOf
                 setCollectablesMenu();
                 if (productDetail.getCollectableItemsListData().size() != 0) {
                     binding.rvProductCollectableItems.setAdapter(collectableItemsAdapter);
-                    collectableItemsAdapter.setCollectableItemsList((ArrayList<CollectableItemsListData>) productDetail.getCollectableItemsListData(), ProductDetailActivity.this::getSysId);
+                    collectableItemsAdapter.setCollectableItemsList((ArrayList<CollectableItemsListData>) productDetail.getCollectableItemsListData(), categoriesName, categoriesNumber, ProductDetailActivity.this);
                     collectableItemsAdapter.notifyDataSetChanged();
                 }
                 callVmForSubCategoryDropdownList(Integer.parseInt(productDetail.getProductDetail().getCategory()));
@@ -230,12 +257,16 @@ public class ProductDetailActivity extends BaseActivity implements GetSystemIdOf
             }
         }
         binding.includeSubCatSearchCollectables.dmSubCategories.tvForCategoriesMenu.setText(setCategory, false);
-        binding.includeSubCatSearchCollectables.dmSubCategories.tvForCategoriesMenu.setDropDownBackgroundDrawable(getResources().getDrawable(R.drawable.filters_items_background));
+        binding.includeSubCatSearchCollectables.dmSubCategories.tvForCategoriesMenu.setDropDownBackgroundDrawable(getResources().getDrawable(R.drawable.dropdown_menu_items_background));
         binding.tvCollectablesItemsAuthor.setText(collectableItemsListData.getAuthor());
         binding.tvCollectablesItemsDescription.setText(collectableItemsListData.getDescription());
         binding.tvCollectablesItemsTitle.setText(collectableItemsListData.getTitle());
-        binding.tvCollectablesItemsPrice.setText("$" + collectableItemsListData.getPrice());
-        Picasso.get().load(collectableItemsListData.getImage().get(0)).resize(200, 250).into(binding.imageProduct);
+        binding.tvCollectablesItemsPrice.setText(collectableItemsListData.getPrice());
+        if (collectableItemsListData.getImage().size() != 0 && collectableItemsListData.getImage() != null) {
+            Picasso.get().load(collectableItemsListData.getImage().get(0)).resize(200, 250).into(binding.imageProduct);
+        } else {
+            binding.imageProduct.setImageResource(R.drawable.not_found_img);
+        }
         if (collectableItemsListData.getImage().size() > 1) {
             binding.btnGreaterThan.setVisibility(View.VISIBLE);
         }
@@ -243,13 +274,16 @@ public class ProductDetailActivity extends BaseActivity implements GetSystemIdOf
 
     public void callVmForSubCategoryDropdownList(int selectedSubCat) {
         if (isInternetConnected(getApplicationContext())) {
+            showProgressingView();
             viewModel.getSubCategoryLiveDropdownList(selectedSubCat).observe(this, new Observer<List<SubCategoryDropdownListData>>() {
                 @Override
                 public void onChanged(List<SubCategoryDropdownListData> subCategoryDropdownListData) {
                     subCategoryAdapter.setSubCategoriesList(subCategoryDropdownListData, getApplicationContext(), ProductDetailActivity.this);
                     subCategoryAdapter.notifyDataSetChanged();
                 }
+
             });
+            hideProgressingView();
         } else {
             onDataNotFound(getApplicationContext());
         }
@@ -268,13 +302,13 @@ public class ProductDetailActivity extends BaseActivity implements GetSystemIdOf
 
 
     @Override
-    public void getSysId(String sysId) {
-        callProductListPage(getApplicationContext(), sysId);
+    public void getSysId(String sysId, int saveDelete) {
+        storeCartItems(sysId, saveDelete);
     }
 
     @Override
     public void getReference(int reference) {
-            this.reference = reference;
-            callCatalogueList(subCategoryPosition);
+        callCatalogueListActivity(getApplicationContext(), null, subCategoryPosition, reference);
+
     }
 }

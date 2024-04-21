@@ -28,11 +28,8 @@ public class ApiClient {
 
     }
 
-    public static Retrofit getCollectables() {
-
-
+    public static Retrofit baseUrl() {
         setRetrofit("https://stagingapi.pennymead.com//view/");
-
         return retrofit;
     }
 
@@ -43,14 +40,12 @@ public class ApiClient {
     }
 
     public static Retrofit getCategoryCollectableItems(int subCat, String selectedFilter) {
-
         setRetrofit("https://stagingapi.pennymead.com/view/category/" + subCat + "/" + selectedFilter + "/");
         return retrofit;
     }
 
     public static Retrofit getSubCategoryDropdownList() {
         setRetrofit("https://stagingapi.pennymead.com/view/getsubcat_dropdownlist/");
-
         return retrofit;
     }
 
@@ -59,12 +54,19 @@ public class ApiClient {
         return retrofit;
     }
 
-    public static Retrofit getCollectableItemsBySearch() {
-        setRetrofit("https://stagingapi.pennymead.com/view/");
-        return retrofit;
-    }
     public static Retrofit getCollectableRelatedItems() {
         setRetrofit("https://stagingapi.pennymead.com//view/product_detail/");
         return retrofit;
     }
+
+    public static Retrofit getRegisteredUSerDetail() {
+        setRetrofit("https://stagingapi.pennymead.com/view/checkuser/");
+        return retrofit;
+    }
+
+    public static Retrofit getOrderSummary() {
+        setRetrofit("https://stagingapi.pennymead.com/view/orderSummary/");
+        return retrofit;
+    }
+
 }

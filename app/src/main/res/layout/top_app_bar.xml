@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/open_search_view_toolbar"
+            android:id="@+id/open_view_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme"
@@ -19,18 +18,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingEnd="16dp"
-                    android:paddingTop="16dp"
                     android:paddingBottom="16dp">
 
                         <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:text="@string/top_app_bar_name"
                             android:textColor="@color/text_primary_black_color"
                             android:textSize="20sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/add_to_cart"
+                            app:layout_constraintBottom_toBottomOf="@+id/side_menu"
+                            app:layout_constraintEnd_toStartOf="@+id/side_menu"
+                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/add_to_cart" />
+                            app:layout_constraintTop_toTopOf="@+id/side_menu"
+                            app:layout_constraintVertical_bias="0.523" />
 
                         <ImageButton
                             android:id="@+id/add_to_cart"
@@ -43,11 +46,28 @@
                             app:layout_constraintEnd_toStartOf="@+id/side_menu"
                             app:layout_constraintTop_toTopOf="@+id/side_menu" />
 
+                        <TextView
+                            android:id="@+id/badge_notification"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignRight="@id/add_to_cart"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/badge_background"
+                            android:gravity="center"
+                            android:padding="2dp"
+                            android:text="5"
+                            android:textColor="@color/text_white_color"
+                            android:textSize="12sp"
+                            app:layout_constraintEnd_toStartOf="@+id/side_menu"
+                            app:layout_constraintTop_toTopOf="parent" />
+
                         <ImageButton
                             android:id="@+id/side_menu"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_gravity="end"
+                            android:layout_marginTop="16dp"
                             android:background="@null"
                             android:src="@drawable/icon_side_menu"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -63,6 +83,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/open_search_view_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/open_view_toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

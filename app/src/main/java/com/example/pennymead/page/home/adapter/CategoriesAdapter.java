@@ -38,10 +38,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Li
             categoriesNumber.add(listCategoriesDataList.get(position).getCategory());
             holder.tvName.setText(listCategoriesDataList.get(position).getName());
             holder.tvTitle.setText(listCategoriesDataList.get(position).getTitle());
-            if(listCategoriesDataList.get(position).getImage()!=null) {
+            if (listCategoriesDataList.get(position).getImage() != null && listCategoriesDataList.get(position).getImage().size() != 0) {
                 Picasso.get().load(listCategoriesDataList.get(position).getImage().get(0)).resize(100, 120).into(holder.ivItems);
-            }
-            else{
+            } else {
                 holder.ivItems.setImageResource(R.drawable.not_found_img);
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +52,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Li
                     intent.putExtra("Category Position", position);
                     intent.putStringArrayListExtra("Categories Name", categoriesName);
                     intent.putStringArrayListExtra("Categories Number", categoriesNumber);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     v.getContext().startActivity(intent);
+
                 }
             });
     }
@@ -73,7 +74,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Li
     public class ListCategoryViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivItems;
-      MaterialTextView tvTitle;
+        MaterialTextView tvTitle;
         MaterialTextView tvName;
 
         public ListCategoryViewHolder(@NonNull View itemView) {

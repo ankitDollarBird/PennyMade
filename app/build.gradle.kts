@@ -26,8 +26,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
+    }
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
     }
 }
 
